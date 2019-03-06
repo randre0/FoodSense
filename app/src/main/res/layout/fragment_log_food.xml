@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/LogFoodLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/centerPoint"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true">
+    <ImageButton
+        android:id="@+id/log_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0000"
+        android:src="@mipmap/groceries"
+        android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/log_food"
+            android:layout_centerInParent="true"
+            android:layout_alignLeft="@+id/log_food"
+            android:layout_alignRight="@+id/log_food"
+            android:text="Log Food"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/centerPoint"
+        android:text=""
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/centerPoint"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:gravity="">
+
+        <ImageButton
+            android:id="@+id/log_heart_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0000"
+            android:src="@mipmap/heart_button2"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/log_heart_rate"
+            android:layout_alignLeft="@+id/log_heart_rate"
+            android:layout_alignRight="@+id/log_heart_rate"
+            android:layout_centerInParent="true"
+            android:text="Log Heart Rate"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>
