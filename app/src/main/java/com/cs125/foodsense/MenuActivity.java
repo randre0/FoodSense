@@ -41,6 +41,9 @@ public class MenuActivity extends AppCompatActivity {
                     case R.id.navigation_user_profile:
                         break;
                     case R.id.navigation_health_state:
+                        fragment = new HealthState();
+                        mFragmentTransaction.add(R.id.container, fragment);
+                        mFragmentTransaction.commit();
                     default:
                         break;
                 }
