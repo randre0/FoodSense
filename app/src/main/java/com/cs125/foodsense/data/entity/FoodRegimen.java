@@ -38,6 +38,7 @@ public class FoodRegimen {
     public int forVes; // Vescicotonia
 
     public FoodRegimen(String foodDesc, String foodType, int forHep, int forCho, int forPan, int forGas, int forPul, int forCol, int forRen, int forVes) {
+        this.foodId = 0;
         this.foodDesc = foodDesc;
         this.foodType = foodType;
         this.forHep = forHep;

@@ -6,7 +6,9 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.cs125.foodsense.data.MyRepository;
+import com.cs125.foodsense.data.dao.FoodJournalDAO;
 import com.cs125.foodsense.data.entity.FoodJournal;
+import com.cs125.foodsense.data.entity.UserConstitution;
 
 import java.util.List;
 
@@ -28,13 +30,16 @@ public class FoodJournalViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<FoodJournal>> getMyFoodJournal(String userEmail){
-        if (myFoodJournal == null){
-            _initData(userEmail);
-        }
-        return myFoodJournal;
+        return repository.getMyFoodJournal(userEmail);
     }
 
-    public void _initData(String userEmail){
-        myFoodJournal = repository.getMyFoodJournal(userEmail);
+    public LiveData<List<FoodJournal>> getMyFoodJournalByDuration(String userEmail, String duration){
+        return repository.getMyFoodJournalByDuration(userEmail, duration);
     }
+
+    public LiveData<List<FoodJournal>> getMyFoodJournalByNumberOfMeals(String userEmail, int meals){
+        return repository.getMyFoodJournalByNumberOfMeals(userEmail, meals);
+    }
+
+
 }

@@ -14,5 +14,5 @@ public interface BodyConstitutionDAO {
     public void insert(BodyConstitution bc);
 
     @Query("SELECT * FROM dt_body_constitution")
-    public List<BodyConstitution> getAll();
+    public List<BodyConstitution> getLOV();
 }

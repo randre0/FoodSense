@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.cs125.foodsense.data.MyRepository;
+import com.cs125.foodsense.data.dao.UserDAO;
 import com.cs125.foodsense.data.entity.User;
 
 /*
@@ -15,7 +16,6 @@ import com.cs125.foodsense.data.entity.User;
  */
 public class MyViewModel extends AndroidViewModel {
     private MyRepository repository;
-    private LiveData<User> user;
 
     public MyViewModel(@NonNull Application application) {
         super(application);
@@ -23,7 +23,7 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     /* FOOD REGIMEN */
-    public void insert(@NonNull User user){
+    public void insertIfNotExist(@NonNull User user){
         Log.d("MyViewModel (User)", "Inserting user...");
         repository.insertUser(user);
     }
@@ -33,15 +33,12 @@ public class MyViewModel extends AndroidViewModel {
         repository.updateUser(user);
     }
 
-    public void initData(String email){
-        user = repository.getUser(email);
+    public User getUserStatic(String email) {
+        return repository.getUserStatic(email);
     }
 
-    public LiveData<User> getUser(String email){
-        if (user == null){
-            initData(email);
-        }
-        return user;
+    public LiveData<User> getUser(String email) {
+        return repository.getUser(email);
     }
 
 

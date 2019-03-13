@@ -6,12 +6,15 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.cs125.foodsense.data.MyRepository;
+import com.cs125.foodsense.data.dao.FoodJournalDAO;
+import com.cs125.foodsense.data.dao.FoodRegimenDAO;
 import com.cs125.foodsense.data.entity.FoodRegimen;
 
 import java.util.List;
 
 public class FoodRegimenViewModel extends AndroidViewModel {
     private MyRepository repository;
+    private FoodRegimenDAO foodRegDao;
     private LiveData<List<FoodRegimen>> allFoodRegimen;
 
 
@@ -24,15 +27,8 @@ public class FoodRegimenViewModel extends AndroidViewModel {
         repository.insertFoodRegimen(fr);
     }
 
-    public void initData(){
-        allFoodRegimen = repository.getAllRegimen();
-    }
-
     public LiveData<List<FoodRegimen>> getAllFoodRegimen(){
-        if (allFoodRegimen == null){
-            initData();
-        }
-        return allFoodRegimen;
+        return repository.getAllFoodRegimen();
     }
     /*
     public void delete(FoodRegimen fr){

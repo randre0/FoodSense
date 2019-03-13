@@ -30,6 +30,7 @@ public class HeartRate {
 
     @ColumnInfo(name="tag")
     private String tag; // BEFORE, AFTER, RESTING
+
     @Nullable
     @TypeConverters({Converters.class})
     @ColumnInfo(name="timestamp")
@@ -39,7 +40,7 @@ public class HeartRate {
         this.email = email;
         this.heartRate = heartRate;
         this.tag = tag;
-       // this.timestamp = Converters.toDateString(Utility.getCurrentDateTime());
+        this.timestamp = Converters.toDateString(Utility.getCurrentDateTime());
     }
 
     public int getId() {

@@ -17,9 +17,9 @@ public interface UserDAO {
     public void update(User user);
 
     @Query("UPDATE dt_user " +
-            "SET first_name =:name, age =:age, height =:height, weight =:weight " +
+            "SET first_name =:name, age =:age, height =:height, weight =:weight, gender =:gender " +
             "WHERE pk_email =:email")
-    public void updateUser(String email, String name, int age, int height, double weight);
+    public void updateUser(String email, String name, int age, int height, double weight, String gender);
 
     @Query("SELECT " +
             "(EXISTS(" +

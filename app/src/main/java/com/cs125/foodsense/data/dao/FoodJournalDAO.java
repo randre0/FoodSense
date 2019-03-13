@@ -19,12 +19,31 @@ public interface FoodJournalDAO {
     @Update
     public void update(FoodJournal foodJournal);
 
-    @Query("SELECT * FROM dt_food_journal WHERE fk_user_email =:userEmail")
-    public LiveData<List<FoodJournal>> getFoodJournalByUser(String userEmail);
-
     @Query("UPDATE dt_food_journal " +
             "SET hr_diff=:hrDiff " +
             "WHERE fk_user_email =:userEmail " +
             "AND food_desc =:food")
     public void updateHrDiff(String userEmail, String food, double hrDiff);
+
+
+    @Query("SELECT * FROM dt_food_journal WHERE fk_user_email =:userEmail")
+    public LiveData<List<FoodJournal>> getFoodJournalByUser(String userEmail);
+
+    @Query("SELECT * FROM dt_food_journal " +
+            "WHERE fk_user_email =:userEmail " +
+            "AND datetime(time_eaten, :duration)" +
+            "ORDER BY datetime(time_eaten) ASC")
+    public LiveData<List<FoodJournal>> getFoodJournalByUserAndDuration(String userEmail, String duration);
+    // duration - "-1 min", "-24 hour", "2 day"
+
+    @Query("SELECT * FROM dt_food_journal " +
+            "WHERE fk_user_email =:userEmail " +
+            "ORDER BY datetime(time_eaten) DESC " +
+            "LIMIT :meals")
+    public LiveData<List<FoodJournal>> getFoodJournalByUserAndMeals(String userEmail, int meals);
+    // get last ? of meals
+
+
+
+
 }

@@ -44,7 +44,6 @@ public class BodyConstitution {
     @Override
     public String toString() {
         return "BodyConstitution{" +
-                "id=" + id +
                 ", constitution_desc='" + constitution_desc + '\'' +
                 ", code='" + code + '\'' +
                 '}';

@@ -24,4 +24,11 @@ public interface HeartRateDAO {
             "WHERE email =:email " +
             "ORDER BY timestamp DESC")
     public LiveData<List<HeartRate>> getAllHRByUser(String email);
+
+    @Query("SELECT * FROM dt_heart_rate " +
+            "WHERE email =:email " +
+            "AND datetime(timestamp, :duration)" +
+            "ORDER BY timestamp DESC")
+    public LiveData<List<HeartRate>> getAllHRByUser(String email, String duration);
+
 }

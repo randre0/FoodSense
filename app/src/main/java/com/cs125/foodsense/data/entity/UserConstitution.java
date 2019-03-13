@@ -17,21 +17,21 @@ public class UserConstitution {
     private String bodyConstitution;
 
     @ColumnInfo(name = "hep_hits")
-    public int hepHits; // Hepatomia
+    private int hepHits; // Hepatomia
     @ColumnInfo(name = "cho_hits")
-    public int choHits; // Cholecystonia
+    private int choHits; // Cholecystonia
     @ColumnInfo(name = "pan_hits")
-    public int panHits; // Pancreotonia
+    private int panHits; // Pancreotonia
     @ColumnInfo(name = "gas_hits")
-    public int gasHits; // Gastrotonia
+    private int gasHits; // Gastrotonia
     @ColumnInfo(name = "pul_hits")
-    public int pulHits; // Pulmontonia
+    private int pulHits; // Pulmontonia
     @ColumnInfo(name = "col_hits")
-    public int colHits; // Colonotonia
+    private int colHits; // Colonotonia
     @ColumnInfo(name = "ren_hits")
-    public int renHits; // Renotonia
+    private int renHits; // Renotonia
     @ColumnInfo(name = "ves_hits")
-    public int vesHits; // Vescicotonia
+    private int vesHits; // Vescicotonia
 
     public UserConstitution(String userEmail) {
         this.userEmail = userEmail;

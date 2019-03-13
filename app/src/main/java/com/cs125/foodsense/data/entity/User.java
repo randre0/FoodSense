@@ -22,13 +22,16 @@ public class User {
     private double weight;  // in pounds
     @ColumnInfo(name = "height")
     private int height;     // in inches
+    @ColumnInfo(name="gender")
+    private String gender;
 
-    public User(@NonNull String email, @NonNull String firstName, int age, int height, double weight) {
+    public User(@NonNull String email, @NonNull String firstName, int age, int height, double weight, String gender) {
         this.email = email;
         this.firstName = firstName;
         this.age = age;
         this.weight = weight;
         this.height = height;
+        this.gender = gender;
     }
 
     // GETTER
@@ -52,6 +55,10 @@ public class User {
         return height;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
     // SETTER
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -69,6 +76,10 @@ public class User {
         this.height = height;
     }
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -77,6 +88,7 @@ public class User {
                 ", age=" + age +
                 ", weight=" + weight +
                 ", height=" + height +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

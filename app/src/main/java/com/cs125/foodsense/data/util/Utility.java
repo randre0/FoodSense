@@ -4,8 +4,6 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Utility {
     public static LocalDateTime getCurrentDateTime(){
@@ -25,7 +23,7 @@ public class Utility {
         return null;
     }
 
-    public int toInt(String str){
+    public static int toInt(String str){
         return Integer.parseInt(str.trim());
     }
 }

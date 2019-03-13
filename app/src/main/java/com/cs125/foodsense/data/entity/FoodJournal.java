@@ -5,8 +5,12 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.cs125.foodsense.data.util.Converters;
+import com.cs125.foodsense.data.util.Utility;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -32,11 +36,23 @@ public class FoodJournal {
     @ColumnInfo(name="hr_diff")
     private double hrDiff;
 
+    @Nullable
+    @TypeConverters({Converters.class})
+    @ColumnInfo(name="time_eaten")
+    private String timeEaten;
+
+    @Nullable
+    @TypeConverters({Converters.class})
+    @ColumnInfo(name="timestamp")
+    private String timestamp;
+
     // Constructor
-    public FoodJournal(String userEmail, String food) {
+    public FoodJournal(String userEmail, String food, String timeEaten) {
         this.id = 0;
         this.userEmail = userEmail;
         this.food = food;
+        this.timeEaten = timeEaten;
+        this.timestamp = Converters.toDateString(Utility.getCurrentDateTime());
     }
 
     public int getId() {
@@ -69,6 +85,24 @@ public class FoodJournal {
 
     public void setHrDiff(double hrDiff) {
         this.hrDiff = hrDiff;
+    }
+
+    @Nullable
+    public String getTimeEaten() {
+        return timeEaten;
+    }
+
+    public void setTimeEaten(@Nullable String timeEaten) {
+        this.timeEaten = timeEaten;
+    }
+
+    @Nullable
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(@Nullable String timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
