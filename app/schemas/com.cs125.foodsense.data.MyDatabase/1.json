@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9eee444cfba705ea8ea8293f761ee2b6",
+    "identityHash": "62c2be3f4f483ae445bb6ac4edd930b1",
     "entities": [
       {
         "tableName": "dt_user",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_email` TEXT NOT NULL, `first_name` TEXT, `age` INTEGER NOT NULL, `weight` REAL NOT NULL, `height` INTEGER NOT NULL, PRIMARY KEY(`pk_email`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_email` TEXT NOT NULL, `first_name` TEXT, `age` INTEGER NOT NULL, `weight` REAL NOT NULL, `height` INTEGER NOT NULL, `gender` TEXT, PRIMARY KEY(`pk_email`))",
         "fields": [
           {
             "fieldPath": "email",
@@ -37,6 +37,12 @@
             "columnName": "height",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -130,7 +136,7 @@
       },
       {
         "tableName": "dt_food_journal",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_user_email` TEXT, `food_desc` TEXT, `hr_diff` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_user_email` TEXT, `food_desc` TEXT, `hr_diff` REAL NOT NULL, `time_eaten` TEXT, `timestamp` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -155,6 +161,18 @@
             "columnName": "hr_diff",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "timeEaten",
+            "columnName": "time_eaten",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -319,7 +337,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9eee444cfba705ea8ea8293f761ee2b6\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"62c2be3f4f483ae445bb6ac4edd930b1\")"
     ]
   }
 }

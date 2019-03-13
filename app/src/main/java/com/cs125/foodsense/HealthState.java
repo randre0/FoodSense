@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,22 +28,40 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: make graph half of view. other half tells user body constitution and have button to
+//TODO: take to different activity that recommends foods.
 
 public class HealthState extends Fragment {
 
     private LineGraphSeries<DataPoint> series;
     private List<HRVData> samples = new ArrayList<>();
     private View v;
+    private Button food_rec;
+    private TextView mTextBody;
+    String body;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.health_state, container, false);
         readData();
+        food_rec = (Button) v.findViewById(R.id.button);
+        mTextBody = (TextView) v.findViewById(R.id.textView11);
+        //mTextBody.setText(filler());
+        food_rec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                body = mTextBody.getText().toString();
+                goToFoodRec(view);
+            }
+        });
         return v;
     }
 
-
+    public void goToFoodRec(View view) {
+        Intent recActivity = new Intent(getActivity(), FoodRecActivity.class);
+        startActivity(recActivity);
+    }
 
     private void readData() {
        InputStream is = getResources().openRawResource(R.raw.practice_data);
