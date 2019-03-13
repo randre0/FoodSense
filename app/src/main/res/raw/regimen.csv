@@ -1,0 +1,149 @@
+﻿Beef;Animal Protein;2;2;2;0;-2;-2;0;2
+Pork;Animal Protein;0;2;2;2;-2;-2;-2;-2
+Chicken & Poultry;Animal Protein;1;0;-2;-2;-2;-2;2;2
+Lamb & Goat;Animal Protein;1;0;-2;-2;-2;-2;2;2
+Milk (Cold/Warm) Dairy Products;Animal Protein;1;1;1;1;-2;-2;0;0
+Butter;Animal Protein;1;1;1;0;-2;-2;0;1
+Cheese;Animal Protein;1;1;1;1;-1;-1;0;0
+Egg York;Animal Protein;1;1;1;0;-1;-1;1;1
+Egg White;Animal Protein;0;0;1;1;1;1;0;0
+Salt Water Fish;Animal Protein;-2;-2;1;1;2;2;0;-1
+Fresh Water Fish;Animal Protein;0;0;1;0;-2;-2;0;0
+Clams;Animal Protein;-2;-2;1;1;2;2;-1;-2
+Oyster;Animal Protein;-2;-2;1;1;1;0;-2;-2
+Shell Fish (Crab, Lobster);Animal Protein;-2;-2;1;1;1;1;-2;-2
+Ocean Fish (scales);Animal Protein;-2;-2;1;1;2;2;1;-1
+Ocean Fish (w/o scales);Animal Protein;-2;-2;0;0;1;1;-1;-1
+Swell fish (Monk Fish);Animal Protein;-2;-2;2;2;1;1;-2;-2
+Beans;Vegetable Protein;1;1;1;0;-2;-2;1;1
+Soybeans;Vegetable Protein;1;1;1;0;-2;-2;1;1
+Pea, Kidney Bean;Vegetable Protein;1;1;1;1;1;1;1;1
+Red Bean;Vegetable Protein;-2;1;1;1;1;1;-2;-2
+Fermanted Soybean (Natto);Vegetable Protein;1;1;1;0;-2;-2;0;1
+Peanut, Almond, Cashew Nut);Vegetable Protein;1;1;1;1;-2;-2;1;1
+Pistachios, Pecan, Pinenut;Vegetable Protein;1;1;-1;-2;-2;-2;1;1
+Acorn;Vegetable Protein;1;1;-1;-1;-2;-2;1;1
+Bean Paste (fermented);Vegetable Protein;2;2;2;1;1;1;1;2
+Soy Milk;Vegetable Protein;1;1;1;0;-2;-2;0;0
+Tofu;Vegetable Protein;1;1;1;1;1;1;1;1
+Rice (white);Carbohydrates: Grains;1;1;1;1;2;2;1;1
+Brown Rice ;Carbohydrates: Grains;1;0;-2;-2;-1;-1;1;1
+Sweet Rice ;Carbohydrates: Grains;1;-1;-2;-2;-1;0;1;1
+Barley;Carbohydrates: Grains;-1;0;1;0;0;0;-2;-2
+Buckwheat ;Carbohydrates: Grains;-1;-1;1;1;1;1;0;-1
+African/Indian Millet ;Carbohydrates: Grains;1;1;0;0;-1;-1;1;0
+Millet: Setaria italica;Carbohydrates: Grains;0;0;1;1;1;1;-1;-1
+Mung Bean;Carbohydrates: Grains;0;0;1;1;1;1;0;0
+Corn;Carbohydrates: Grains;1;1;0;0;0;0;1;1
+Wheat Products ;Carbohydrates: Grains;2;2;1;0;-2;-2;0;1
+Job's Tears;Carbohydrates: Grains;1;2;0;0;-2;-2;0;0
+Crusted Rice (Boiled);Carbohydrates: Grains;1;0;-1;-1;0;1;1;1
+Oat ;Carbohydrates: Grains;1;1;1;0;-1;-1;0;0
+Rye ;Carbohydrates: Grains;0;0;1;1;0;0;0;-1
+Perilla Oil ;Oil;1;1;1;-1;-1;-1;0;0
+Sesame Oil;Oil;1;0;-1;-1;-1;-1;1;1
+Soy Oil;Oil;1;1;1;0;-1;-1;0;0
+Corn Oil;Oil;1;1;0;0;-1;0;1;1
+Canola Oil;Oil;1;1;1;1;0;0;1;1
+Olive Oil;Oil;0;0;1;1;0;0;0;0
+Grapeseed Oil;Oil;-1;-1;1;1;0;0;0;0
+Coconut Oil;Oil;0;0;1;1;0;0;0;0
+Root Vegetables (Radish. Carrot, Lotus Root, etc);Root Vegetables: Roots;2;2;1;0;-1;-1;0;1
+Potato, Yam;Root Vegetables: Roots;2;1;0;-1;0;0;1;1
+Dioscorea Opposita ;Root Vegetables: Roots;2;2;-1;-1;-2;-2;0;1
+Beet ;Root Vegetables: Roots;1;1;0;-1;-2;-2;0;1
+Ginger;Root Vegetables: Roots;1;0;-2;-2;-2;0;1;1
+Chinese Bellflower, Taro, Codonopsis Lanceolata, Burdok;Root Vegetables: Roots;1;1;-2;-2;-2;-2;1;1
+Green Vegetables (Lettuuce, Cabbage, etc);Green Vegetables: Leaves, Stems;-1;-1;1;1;2;2;1;0
+Bracken (Fern) ;Green Vegetables: Leaves, Stems;-1;-1;1;1;1;1;0;-1
+Cucumber;Green Vegetables: Leaves, Stems;-1;-1;1;1;1;1;0;-1
+Stems of Radish;Green Vegetables: Leaves, Stems;-1;-1;1;1;0;0;0;-1
+Spinach;Green Vegetables: Leaves, Stems;0;0;0;0;0;1;1;1
+Aster Scaber ;Green Vegetables: Leaves, Stems;0;0;1;1;1;1;1;0
+Water Dropworth ;Green Vegetables: Leaves, Stems;0;0;1;1;1;1;0;0
+Perilla Leaf;Green Vegetables: Leaves, Stems;0;0;0;0;0;0;0;0
+Allium Tuberosum ;Green Vegetables: Leaves, Stems;0;0;0;0;1;1;1;1
+Bell Pepper;Green Vegetables: Leaves, Stems;0;0;0;0;0;0;0;0
+Pumpkin;Green Vegetables: Leaves, Stems;1;1;1;0;-1;-1;0;1
+Zucchini;Green Vegetables: Leaves, Stems;1;1;1;1;1;1;1;1
+Eggplant;Green Vegetables: Leaves, Stems;1;1;0;0;0;1;1;1
+Tomato;Green Vegetables: Leaves, Stems;1;0;-1;-1;0;0;1;1
+Avocado;Green Vegetables: Leaves, Stems;1;1;1;1;0;0;0;0
+Shoot of a Fatsia;Green Vegetables: Leaves, Stems;0;0;1;1;0;0;-1;-1
+Mushroom;Green Vegetables: Leaves, Stems;1;1;1;0;-1;-1;0;1
+Celery;Green Vegetables: Leaves, Stems;0;0;0;0;0;0;0;-1
+Hot Pepper;Herb and Spices;0;0;-2;-2;-1;0;1;1
+Onion, Green Onion, Ginger, Cinnamon, Curry, Mustard, Wasabi;Herb and Spices;1;0;-2;-2;-1;0;1;1
+Garlic (Cooked);Herb and Spices;2;2;0;-1;-2;-2;1;1
+Sugar (Sucrose);Herb and Spices;1;1;1;0;-1;-1;0;1
+Seaweeds ;Sea Plants;0;0;-2;-2;0;0;1;1
+Nori;Sea Plants;0;0;0;0;1;1;1;0
+Apple;Fruits;1;1;-2;-2;-2;-1;2;2
+Asian Pear;Fruits;2;2;1;0;-1;-1;0;1
+Citrus (Lemon, Lime, Orange, Tangerine, Grapefruit);Fruits;1;0;-2;-2;-1;0;1;1
+Mango;Fruits;1;0;-2;-2;-1;0;1;1
+Tomato;Fruits;1;0;-1;-1;0;0;1;1
+Melon;Fruits;1;1;1;1;0;0;0;0
+Campbell Early (Korean Grapes);Fruits;-1;-1;1;1;1;1;0;0
+Grapes ;Fruits;-2;-2;1;1;1;1;1;-2
+Berries, Banana, Pineapple, Yellow Korean Melon;Fruits;0;0;1;1;1;1;-1;-1
+Kiwi;Fruits;0;0;0;0;0;0;0;0
+Pomegranate;Fruits;0;0;1;1;-1;-1;0;0
+Papaya;Fruits;0;0;0;0;0;0;0;0
+Bluebery;Fruits;0;0;1;1;0;0;0;0
+Mulberry;Fruits;0;0;1;1;-1;-1;0;0
+Persimmon;Fruits;-1;-1;1;1;1;1;-1;-1
+Rapsberry;Fruits;-1;-1;1;1;1;1;-1;-1
+Peach, Plum;Fruits;0;0;0;0;1;1;0;0
+Cherry, Apricot;Fruits;0;0;0;0;1;1;0;0
+Cranberry;Fruits;-1;-1;1;1;0;0;-2;-2
+Coconut;Fruits;0;0;1;1;0;0;0;0
+Fig;Fruits;-1;0;1;1;1;1;0;-1
+Lychee1;Fruits;1;1;1;1;-1;-1;0;0
+Ginseng, Red Ginseng;Herbs and Health Supplements;1;-1;-2;-2;-2;-1;1;1
+Antlers of the Deer;Herbs and Health Supplements;1;1;-1;-2;-2;-2;0;0
+Honey;Herbs and Health Supplements;1;-1;-2;-2;-2;-1;1;1
+Dates, Jujube;Herbs and Health Supplements;1;-1;-2;-2;-2;-1;1;1
+Chinese Matrimony Vine;Herbs and Health Supplements;-1;-1;1;0;-1;-1;-1;-1
+Root of Ranuculaceae ;Herbs and Health Supplements;0;-1;-2;-2;-1;-1;0;0
+Reishi Mushroom ;Herbs and Health Supplements;-1;-1;1;0;-2;-2;-1;-1
+Phellinus Linteus Aoshima;Herbs and Health Supplements;0;0;-1;-1;-1;-1;-1;-1
+Quince ;Herbs and Health Supplements;-1;-1;0;0;1;1;0;-1
+Citrus Tea ;Herbs and Health Supplements;1;1;-2;-2;-1;-1;0;0
+Japanese Apricot ;Herbs and Health Supplements;0;0;-1;-1;-1;-1;1;1
+Schisandra Chinensis ;Herbs and Health Supplements;0;1;-1;-1;-2;-2;0;0
+Cornus Officinalis ;Herbs and Health Supplements;-1;-1;1;0;-1;-1;-2;-2
+Arrow Root ;Herbs and Health Supplements;1;1;-1;-1;-2;-2;-1;1
+Aloe Vera;Herbs and Health Supplements;-2;0;1;1;0;-1;-2;-2
+Squalene ;Herbs and Health Supplements;1;1;0;0;-1;-1;0;0
+Vit. A, D (in Food);Herbs and Health Supplements;1;1;0;-1;-1;-1;0;0
+Vit. C (in Food);Herbs and Health Supplements;1;1;0;0;0;0;1;1
+Vit. B (in Food);Herbs and Health Supplements;0;0;-1;-1;0;0;1;1
+Vit. E (in Food);Herbs and Health Supplements;-1;0;1;1;0;0;-1;-1
+Dextrose Injection;Herbs and Health Supplements;-2;-2;1;1;1;1;0;-1
+Dextrose Powder;Herbs and Health Supplements;-2;-2;1;1;1;1;0;-1
+Caffeinated Beverages (Coffee, Tea, Energy Drinks);Drinks and Beverages;1;1;1;0;-1;-1;-1;-1
+Green Tea & Most Herbal Tea;Drinks and Beverages;0;0;0;0;-1;-1;0;0
+Chamomile Tea ;Drinks and Beverages;0;1;-1;-1;-2;-2;-1;-1
+Ginger Tea;Drinks and Beverages;1;-1;-2;-2;-2;0;1;1
+Dates, Jujube Tea;Drinks and Beverages;1;-1;-2;-2;-2;-1;1;1
+Adlay Tea;Drinks and Beverages;1;1;0;0;-2;-2;0;0
+Quince Tea ;Drinks and Beverages;-1;-1;0;0;1;1;0;-1
+Ssang Hwa Tea;Drinks and Beverages;0;0;-2;-2;-2;-2;1;1
+Ginseng Tea;Drinks and Beverages;1;-1;-2;-2;-2;-1;2;2
+Cold Drink Water;Drinks and Beverages;0;0;1;1;1;1;-1;-1
+Warm Drink Water;Drinks and Beverages;1;1;0;0;0;0;1;1
+Alkaline Beverage;Drinks and Beverages;1;1;1;1;-1;-1;-1;-1
+Ice;Drinks and Beverages;0;0;1;1;1;1;0;-1
+Soda;Drinks and Beverages;-1;-1;-1;-1;-1;-1;-1;-1
+Alcoholic Beverage;Favorites / Snacks;-2;-2;-2;-2;-2;-2;-2;-2
+Smoking Cigarette;Favorites / Snacks;-2;-2;-2;-2;-2;-2;-2;-2
+Chocolae, Cocoa;Favorites / Snacks;0;0;0;0;0;0;0;0
+Beer;Alcoholic Beverages;-1;-1;0;0;0;0;-1;-1
+Whiskey;Alcoholic Beverages;0;0;0;-1;-1;-1;0;0
+Tequila;Alcoholic Beverages;-1;0;0;-1;-1;-1;-1;-2
+Vodka;Alcoholic Beverages;0;0;0;-1;-1;-1;0;0
+Wine;Alcoholic Beverages;-2;-2;0;0;0;0;0;-2
+Unfiltered Koean Rice Sake ;Alcoholic Beverages;-1;-1;0;-1;0;0;-1;-1
+Sake;Alcoholic Beverages;0;0;0;0;0;0;0;0
+Soju;Alcoholic Beverages;-1;-1;-1;-1;-1;-1;-1;-1
