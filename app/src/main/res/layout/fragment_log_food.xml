@@ -32,8 +32,6 @@
 
     </RelativeLayout>
 
-
-
     <TextView
         android:id="@+id/centerPoint"
         android:text=""

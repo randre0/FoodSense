@@ -14,7 +14,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNavigation;
     private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
+    private Fragment mCurrentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,37 +22,39 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         mBottomNavigation = findViewById(R.id.navigationView);
+
+        mBottomNavigation.setSelectedItemId(R.id.navigation_user_profile);
+        mCurrentFragment = new UserProfileFragment();
+        mFragmentTransaction.add(R.id.container, mCurrentFragment);
+        mFragmentTransaction.commit();
 
         mBottomNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment fragment;
+                FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.remove(mCurrentFragment).commit();
                 switch(menuItem.getItemId()) {
                     case R.id.navigation_food_journal:
                         break;
                     case R.id.navigation_log_food:
-                        fragment = new LogFoodFragment();
-                        mFragmentTransaction.add(R.id.container, fragment);
-                        mFragmentTransaction.commit();
+                        mCurrentFragment = new LogFoodFragment();
                         break;
                     case R.id.navigation_user_profile:
+                        mCurrentFragment = new UserProfileFragment();
                         break;
                     case R.id.navigation_health_state:
-                        fragment = new HealthState();
-                        mFragmentTransaction.add(R.id.container, fragment);
-                        mFragmentTransaction.commit();
+                        mCurrentFragment = new HealthState();
+                        break;
                     default:
                         break;
                 }
+                mFragmentTransaction.add(R.id.container, mCurrentFragment);
                 return true;
             }
         });
-
-        mBottomNavigation.setSelectedItemId(R.id.navigation_user_profile);
     }
-
 
 }

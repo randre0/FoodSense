@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/InputFoodRelativeLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/food_category_spinner"
+        android:layout_centerInParent="true"
+        android:text="Select Food Category"/>
+
+    <Spinner
+        android:id="@+id/food_category_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"></Spinner>
+
+    <TextView
+        android:id="@+id/food_selection_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/food_category_spinner"
+        android:layout_centerInParent="true"
+        android:text="Select Food "/>
+
+    <Spinner
+        android:id="@+id/food_list_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/food_selection_text"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"></Spinner>
+
+    <Button
+        android:id="@+id/submit_food_button"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/food_list_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit" />
+
+
+</RelativeLayout>

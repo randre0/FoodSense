@@ -1,21 +1,32 @@
 package com.cs125.foodsense;
 
 import android.Manifest;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class HeartRateActivity extends AppCompatActivity implements SensorEventListener {
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.SENSOR_SERVICE;
+
+public class HeartRateActivity extends Fragment implements SensorEventListener {
     private static final String TAG = "HeartRateActivity";
 
     private TextView mInstructionsText;
@@ -23,21 +34,25 @@ public class HeartRateActivity extends AppCompatActivity implements SensorEventL
     private boolean mHREnabled;
     private ArrayList<Integer> mHeartRates;
     private SensorManager mSensorManager;
+    private Button mButton;
+    private Integer mHeartRate;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ActivityCompat.requestPermissions(HeartRateActivity.this,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                Bundle savedInstanceState) {
+        ActivityCompat.requestPermissions(getActivity(),
                 new String[]{Manifest.permission.BODY_SENSORS},
                 1);
-        super.onCreate(savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
+        View myView = inflater.inflate(R.layout.activity_heart_rate, container, false);
 
+        mHeartRate = null;
         mHeartRates = new ArrayList<Integer>();
-        setContentView(R.layout.activity_heart_rate);
-
-        mInstructionsText = (TextView) findViewById(R.id.heartRateInstructions);
+        mInstructionsText = (TextView) myView.findViewById(R.id.heartRateInstructions);
+        mButton = (Button) myView.findViewById(R.id.heart_rate_submit_button);
         mHREnabled = false;
 
-        mHeartRateButton = findViewById(R.id.heartbutton);
+        mHeartRateButton = myView.findViewById(R.id.heartbutton);
         mHeartRateButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(!mHREnabled){
@@ -46,17 +61,25 @@ public class HeartRateActivity extends AppCompatActivity implements SensorEventL
                 }
             }
         });
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mHeartRate != null) {
+                    Intent intent = new Intent(getContext(), HeartRateActivity.class);
+                    intent.putExtra("heartrate", mHeartRate);
+                    FragmentManager mFragmentManager = getFragmentManager();
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
+                    mFragmentManager.popBackStackImmediate();
+                    mFragmentTransaction.commit();
+                }
+            }
+        });
+
+        return myView;
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-    }
 
     @Override
     public void onSensorChanged(SensorEvent event){
@@ -84,7 +107,7 @@ public class HeartRateActivity extends AppCompatActivity implements SensorEventL
     }
 
     private void enableHeartRateSensor(){
-        mSensorManager = ((SensorManager)getSystemService(SENSOR_SERVICE));
+        mSensorManager = ((SensorManager)getActivity().getSystemService(SENSOR_SERVICE));
         Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
 
         mSensorManager.registerListener(this,mHeartRateSensor,
@@ -97,6 +120,7 @@ public class HeartRateActivity extends AppCompatActivity implements SensorEventL
             avgHR += hr;
         }
         avgHR /= 10;
+        mHeartRate = avgHR;
         String message = "Your BPM is " + Integer.toString(avgHR);
         mInstructionsText.setText(message);
     }

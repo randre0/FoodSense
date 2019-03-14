@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 height = Integer.valueOf(mEditHeight.getText().toString());
                 weight = Integer.valueOf(mEditWeight.getText().toString());
                 email = mEditEmail.getText().toString();
-
+                updateUserProfile(age, height, weight, "female");
                 goToHome(view);
             }
         });
