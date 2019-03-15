@@ -208,6 +208,16 @@ public class MyRepository {
         new HeartRateAsyncTask(heartRateDAO).execute(hr);
     }
 
+    public LiveData<List<HeartRate>> getAllHRByUser(String email){
+        return heartRateDAO.getAllHRByUser(email);
+    }
+
+    public LiveData<List<HeartRate>> getAllHRByUserDuration(String email, String duration){
+        // duration ex.
+        // "-24 hour"
+        // "-2 day"
+        return heartRateDAO.getAllHRByUserDuration(email, duration);
+    }
 
     /* ---------------------- FOOD REGIMEN -------------------------------------- */
     private static class InsertFoodRegimenAsyncTask extends AsyncTask<FoodRegimen, Void, Void> {
