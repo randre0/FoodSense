@@ -14,21 +14,25 @@ import java.util.List;
 @Dao
 public interface HeartRateDAO {
 
+    // Insert entry
     @Insert
     public void insert(@NonNull HeartRate hr);
 
+    // Return table of all heart rates
     @Query("SELECT * FROM dt_heart_rate;")
     public LiveData<List<HeartRate>> getAllHR();
 
+    // Return table of all heart rates for specified user
     @Query("SELECT * FROM dt_heart_rate " +
             "WHERE email =:email " +
-            "ORDER BY timestamp DESC")
+            "ORDER BY datetime(timestamp) DESC;")
     public LiveData<List<HeartRate>> getAllHRByUser(String email);
 
+    // Return heart rates by user and in the time frame (order from most recent to least recent)
     @Query("SELECT * FROM dt_heart_rate " +
             "WHERE email =:email " +
-            "AND datetime(timestamp, :duration)" +
-            "ORDER BY timestamp DESC")
-    public LiveData<List<HeartRate>> getAllHRByUser(String email, String duration);
+            "AND datetime(timestamp, :duration) " +
+            "ORDER BY datetime(timestamp) DESC;")
+    public LiveData<List<HeartRate>> getAllHRByUserDuration(String email, String duration);
 
 }

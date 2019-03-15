@@ -432,15 +432,13 @@ public class MyRepository {
     public void updateConstitution(UserConstitution uc) {
         new UserConstAsyncTask(userConstDAO, "UPDATE_CONST").execute(uc);
     }
-
-
+    
     public List<BodyConstitution> getConstitutionLOV(){
         return bodyConstDAO.getLOV();
     }
 
-    public UserConstitution getUserConst(String userEmail){
-        //return userConstDAO.getByUser(userEmail);
-        return null; // error?
+    public LiveData<UserConstitution> getUserConst(String userEmail){
+        return userConstDAO.getByUser(userEmail);
     }
 
 

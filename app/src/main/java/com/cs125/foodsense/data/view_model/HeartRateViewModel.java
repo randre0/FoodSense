@@ -41,7 +41,7 @@ public class HeartRateViewModel extends AndroidViewModel {
         // duration ex.
         // "-24 hour"
         // "-2 day"
-        return heartRateDAO.getAllHRByUser(email, duration);
+        return heartRateDAO.getAllHRByUserDuration(email, duration);
     }
 
 }

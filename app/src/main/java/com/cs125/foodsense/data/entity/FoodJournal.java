@@ -37,6 +37,10 @@ public class FoodJournal {
     private double hrDiff;
 
     @Nullable
+    @ColumnInfo(name="food_classification")
+    private String foodClassification;
+
+    @Nullable
     @TypeConverters({Converters.class})
     @ColumnInfo(name="time_eaten")
     private String timeEaten;
@@ -85,6 +89,24 @@ public class FoodJournal {
 
     public void setHrDiff(double hrDiff) {
         this.hrDiff = hrDiff;
+        if (hrDiff < 2){
+            setFoodClassification("GOOD");
+        }
+        else if (hrDiff >= 2 && hrDiff < 4){
+            setFoodClassification("NEUTRAL");
+        }
+        else {
+            setFoodClassification("BAD");
+        }
+    }
+
+    @Nullable
+    public String getFoodClassification() {
+        return foodClassification;
+    }
+
+    public void setFoodClassification(@Nullable String foodClassification) {
+        this.foodClassification = foodClassification;
     }
 
     @Nullable
@@ -108,11 +130,10 @@ public class FoodJournal {
     @Override
     public String toString() {
         return "FoodJournal{" +
-                "userEmail='" + userEmail + '\'' +
-                ", food='" + food + '\'' +
-               // ", timeEaten='" + timeEaten + '\'' +
-                ", hrDiff='" + hrDiff + '\'' +
-               // ", timestamp='" + timestamp + '\'' +
+                "food='" + food + '\'' +
+                ", hrDiff=" + hrDiff +
+                ", foodClassification='" + foodClassification + '\'' +
+                ", timeEaten='" + timeEaten + '\'' +
                 '}';
     }
 }

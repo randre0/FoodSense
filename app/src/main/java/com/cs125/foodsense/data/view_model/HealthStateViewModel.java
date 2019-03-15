@@ -37,13 +37,13 @@ public class HealthStateViewModel extends AndroidViewModel {
         repository.updateConstitution(uc);
     }
 
-    public UserConstitution getUserConst(String userEmail){
+    public LiveData<UserConstitution> getUserConst(String userEmail){
         return repository.getUserConst(userEmail);
     }
-/*
+
     public List<BodyConstitution> getBodyConstitutionLOV(){
         return repository.getConstitutionLOV();
     }
-    */
+
 
 }
