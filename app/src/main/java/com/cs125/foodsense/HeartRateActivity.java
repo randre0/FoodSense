@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -90,7 +91,7 @@ public class HeartRateActivity extends Fragment implements SensorEventListener {
                 mHeartRates.add(hr);
             }
 
-            if(mHeartRates.size() == 10){
+            if(mHeartRates.size() == 1){
                 displayHeartRate(mHeartRates);
                 mHeartRates = new ArrayList<Integer>();
                 mHREnabled = false;
@@ -115,13 +116,8 @@ public class HeartRateActivity extends Fragment implements SensorEventListener {
     }
 
     private void displayHeartRate(ArrayList<Integer> heartRates){
-        int avgHR = 0;
-        for(int hr : heartRates){
-            avgHR += hr;
-        }
-        avgHR /= 10;
-        mHeartRate = avgHR;
-        String message = "Your BPM is " + Integer.toString(avgHR);
+        String message = "Your BPM is " + Integer.toString(heartRates.get(0));
+        mHeartRate = heartRates.get(0);
         mInstructionsText.setText(message);
     }
 

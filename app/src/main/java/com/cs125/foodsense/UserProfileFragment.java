@@ -14,17 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.cs125.foodsense.data.entity.FoodJournal;
-import com.cs125.foodsense.data.entity.FoodRegimen;
-import com.cs125.foodsense.data.entity.HeartRate;
 import com.cs125.foodsense.data.entity.User;
-import com.cs125.foodsense.data.entity.UserConstitution;
-import com.cs125.foodsense.data.util.Converters;
-import com.cs125.foodsense.data.util.Utility;
-import com.cs125.foodsense.data.view_model.FoodJournalViewModel;
-import com.cs125.foodsense.data.view_model.FoodRegimenViewModel;
-import com.cs125.foodsense.data.view_model.HealthStateViewModel;
-import com.cs125.foodsense.data.view_model.HeartRateViewModel;
 import com.cs125.foodsense.data.view_model.MyViewModel;
 
 import java.time.LocalDateTime;
@@ -39,10 +29,15 @@ public class UserProfileFragment extends Fragment {
     EditText mHeightText;
     EditText mWeightText;
     LiveData<User> mUser;
+    private MyViewModel vm_user;
+    private User USER;
+    private final String USER_EMAIL = "default@uci.edu";
+    private final String NAME = "default";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
-        init();
+        vm_user = ViewModelProviders.of(this).get(MyViewModel.class);
         View v = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         mSubmitButton = v.findViewById(R.id.user_profile_submit_button);
@@ -59,12 +54,14 @@ public class UserProfileFragment extends Fragment {
         final Observer<User> userObserver =  new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
-                USER = user;
-                mNameText.setText(user.getEmail());
-                mGenderText.setText(user.getGender());
-                mAgeText.setText(String.valueOf(user.getAge()));
-                mHeightText.setText(String.valueOf(user.getHeight()));
-                mWeightText.setText(Double.toString(user.getWeight()));
+                if(user != null) {
+                    USER = user;
+                    mNameText.setText(user.getEmail());
+                    mGenderText.setText(user.getGender());
+                    mAgeText.setText(String.valueOf(user.getAge()));
+                    mHeightText.setText(String.valueOf(user.getHeight()));
+                    mWeightText.setText(Double.toString(user.getWeight()));
+                }
             }
         };
         //Attach observer to LiveData<User>
@@ -85,28 +82,6 @@ public class UserProfileFragment extends Fragment {
         return v;
     }
 
-    /********************** FOR YOU GUYS TO USE **********************************/
-    // add  viewmodel to activity/fragments that you need
-    private FoodRegimenViewModel vm_foodRegimen;
-    private FoodJournalViewModel vm_foodJournal;
-    private HeartRateViewModel vm_heartRate;
-    private MyViewModel vm_user;
-    private HealthStateViewModel vm_healthState;
-
-    private User USER;
-    private final String USER_EMAIL = "default@uci.edu";
-    private final String NAME = "default";
-
-
-    private void init() {
-        vm_user = ViewModelProviders.of(this).get(MyViewModel.class);
-        vm_heartRate = ViewModelProviders.of(this).get(HeartRateViewModel.class);
-        vm_foodRegimen = ViewModelProviders.of(this).get(FoodRegimenViewModel.class);
-        vm_foodJournal = ViewModelProviders.of(this).get(FoodJournalViewModel.class);
-        vm_healthState = ViewModelProviders.of(this).get(HealthStateViewModel.class);
-
-        // testVm_healthstate();
-    }
 
     // ** Update any changes to age, height, weight, and age for user
     private void updateUserProfile(int age, int height, double weight, String gender){
