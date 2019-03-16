@@ -19,8 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.cs125.foodsense.data.entity.FoodJournal;
 import com.cs125.foodsense.data.entity.HeartRate;
 import com.cs125.foodsense.data.entity.User;
+import com.cs125.foodsense.data.view_model.FoodJournalViewModel;
 import com.cs125.foodsense.data.view_model.HeartRateViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -44,45 +46,63 @@ import java.util.List;
 public class HealthState extends Fragment {
 
     private LineGraphSeries<DataPoint> series;
-    private List<HRVData> samples = new ArrayList<>();
+    private List<HeartRate> samples = new ArrayList<>();
     private View v;
     BarChart barchart;
     private Button food_rec;
     private TextView mTextBody;
     String body;
     private HeartRateViewModel vm_heartRate;
+    private FoodJournalViewModel vm_foodJournal;
     LiveData<List<HeartRate>> hr;
+    LiveData<List<FoodJournal>> hrDiff;
     private String USER_EMAIL = "default@uci.edu";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //food_rec = (Button) v.findViewById(R.id.button);
+
         vm_heartRate = ViewModelProviders.of(this).get(HeartRateViewModel.class);
-
+        vm_foodJournal = ViewModelProviders.of(this).get(FoodJournalViewModel.class);
         v = inflater.inflate(R.layout.health_state, container, false);
-
-        //getData();
-        readData();
-
 
         barchart = (BarChart) v.findViewById(R.id.bargraph);
 
         String duration = "-3 day";
-        //hr = vm_heartRate.getHrDataByUser("default@uci.edu");
         hr = vm_heartRate.getAllHeartRateByUserDuration(USER_EMAIL, duration);
-        //Set Observer to access data
+        hrDiff = vm_foodJournal.getMyFoodJournalByDuration(USER_EMAIL, duration);
         final Observer<List<HeartRate>> hrObserver =  new Observer<List<HeartRate>>() {
             @Override
             public void onChanged(@Nullable List<HeartRate> list) {
-                System.out.println("WE HERE\n");
+
+                int x, y;
+                GraphView graph = (GraphView) v.findViewById(R.id.graph);
+                series = new LineGraphSeries<DataPoint>();
+                for(int i = 0; i < list.size(); i++) {
+                    x = i;
+                    y = list.get(i).getHeartRate();
+                    series.appendData(new DataPoint(x,y), true, list.size()+1);
+                }
+                //x = 1;
+                //y = 61;
+                //series.appendData(new DataPoint(1,61), true, list.size() + 1);
+                graph.addSeries(series);
+            }
+
+        };
+
+        final Observer<List<FoodJournal>> fjObserver =  new Observer<List<FoodJournal>>() {
+            @Override
+            public void onChanged(@Nullable List<FoodJournal> journal) {
 
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
-                for(int i = 0; i < list.size(); i++) {
-                    float y = (float)(list.get(i).getHeartRate());
+                for(int i = 0; i < journal.size(); i++) {
+                    float y = (float)(journal.get(i).getHrDiff());
                     float x = (float)(i);
                     barEntries.add(new BarEntry(x,y));
-               }
+                }
                 BarDataSet barDataSet = new BarDataSet(barEntries, "Meals");
 
                 BarData theData = new BarData(barDataSet);
@@ -90,8 +110,18 @@ public class HealthState extends Fragment {
             }
 
         };
-        //Attach observer to LiveData<User>
+
         hr.observe(this, hrObserver);
+        hrDiff.observe(this, fjObserver);
+
+        /*food_rec.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                goToFoodRec(view);
+            }
+        });*/
+
+        //Attach observer to LiveData<User>
+
 
         return v;
     }
@@ -102,7 +132,7 @@ public class HealthState extends Fragment {
         startActivity(recActivity);
     }
 
-    private void readData() {
+    /*private void readData() {
        InputStream is = getResources().openRawResource(R.raw.practice_data);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is,
                 Charset.forName("UTF-8")));
@@ -131,5 +161,5 @@ public class HealthState extends Fragment {
         }
         graph.addSeries(series);
 
-    }
+    }*/
 }
