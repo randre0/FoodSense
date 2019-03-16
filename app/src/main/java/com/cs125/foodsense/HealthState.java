@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -14,9 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cs125.foodsense.data.entity.FoodJournal;
@@ -57,18 +61,22 @@ public class HealthState extends Fragment {
     LiveData<List<HeartRate>> hr;
     LiveData<List<FoodJournal>> hrDiff;
     private String USER_EMAIL = "default@uci.edu";
+    //String duration = "1-day";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //food_rec = (Button) v.findViewById(R.id.button);
+        super.onCreate(savedInstanceState);
 
         vm_heartRate = ViewModelProviders.of(this).get(HeartRateViewModel.class);
         vm_foodJournal = ViewModelProviders.of(this).get(FoodJournalViewModel.class);
         v = inflater.inflate(R.layout.health_state, container, false);
 
+        food_rec = (Button) v.findViewById(R.id.button);
+
         barchart = (BarChart) v.findViewById(R.id.bargraph);
+        //duration = "-1 day";
 
         String duration = "-3 day";
         hr = vm_heartRate.getAllHeartRateByUserDuration(USER_EMAIL, duration);
@@ -83,7 +91,7 @@ public class HealthState extends Fragment {
                 for(int i = 0; i < list.size(); i++) {
                     x = i;
                     y = list.get(i).getHeartRate();
-                    series.appendData(new DataPoint(x,y), true, list.size()+1);
+                    series.appendData(new DataPoint(x,y), true, list.size());
                 }
                 //x = 1;
                 //y = 61;
@@ -114,17 +122,16 @@ public class HealthState extends Fragment {
         hr.observe(this, hrObserver);
         hrDiff.observe(this, fjObserver);
 
-        /*food_rec.setOnClickListener(new View.OnClickListener() {
+        food_rec.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 goToFoodRec(view);
             }
-        });*/
-
+        });
         //Attach observer to LiveData<User>
-
 
         return v;
     }
+
 
 
     public void goToFoodRec(View view) {
