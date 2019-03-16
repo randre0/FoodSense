@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs125.foodsense.data.entity.FoodJournal;
@@ -20,9 +18,6 @@ import com.cs125.foodsense.data.util.Converters;
 import com.cs125.foodsense.data.util.Utility;
 import com.cs125.foodsense.data.view_model.FoodJournalViewModel;
 import com.cs125.foodsense.data.view_model.HeartRateViewModel;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -92,6 +87,7 @@ public class LogFoodFragment extends Fragment {
                 logfoodClick = true;
             }
         });
+
         return myView;
     }
 
@@ -116,7 +112,7 @@ public class LogFoodFragment extends Fragment {
                             vm_heart_rate.insert(afterHR);
                             FoodJournal entry = new FoodJournal("default@uci.edu",
                                     mFood, Converters.toDateString(Utility.getCurrentDateTime()));
-                            entry.setHrDiff((double)(mBeforeHeartRate - mAfterHeartRate));
+                            entry.setHrDiff((double)(mAfterHeartRate - mBeforeHeartRate));
                             vm_food_journal.insert(entry);
                             mFood = null;
                             mCategory = null;
@@ -152,5 +148,4 @@ public class LogFoodFragment extends Fragment {
         Toast.makeText(getActivity(), "HeartRate Recieved:",
                 Toast.LENGTH_LONG).show();
     }
-
 }
