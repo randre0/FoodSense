@@ -13,13 +13,15 @@ public interface UserDAO {
     @Insert
     public void insert(User user);
 
-    @Update
-    public void update(User user);
-
     @Query("UPDATE dt_user " +
             "SET first_name =:name, age =:age, height =:height, weight =:weight, gender =:gender " +
             "WHERE pk_email =:email")
     public void updateUser(String email, String name, int age, int height, double weight, String gender);
+
+    @Query("UPDATE dt_user " +
+            "SET body_constitution =:constitution " +
+            "WHERE pk_email =:email;")
+    public void updateConstitution(String email, String constitution);
 
     @Query("SELECT " +
             "(EXISTS(" +

@@ -4,17 +4,25 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity (tableName = "dt_user_constitution")
 public class UserConstitution {
-    @PrimaryKey
-    @NonNull
+    // Fields
+    @PrimaryKey(autoGenerate = true)    // don't need for this table but android requires primary key
+    @ColumnInfo(name="id")
+    public int id;
+
     @ColumnInfo(name="user_email")
     private String userEmail;
 
-    // Body Constitution
-    @ColumnInfo(name="constitution")
-    private String bodyConstitution;
+    @ColumnInfo(name="food_desc")
+    private String food;
 
     @ColumnInfo(name = "hep_hits")
     private int hepHits; // Hepatomia
@@ -33,9 +41,9 @@ public class UserConstitution {
     @ColumnInfo(name = "ves_hits")
     private int vesHits; // Vescicotonia
 
-    public UserConstitution(String userEmail) {
+    public UserConstitution(String userEmail, String food) {
         this.userEmail = userEmail;
-        this.bodyConstitution = "";
+        this.food = food;
         this.hepHits = 0;
         this.choHits = 0;
         this.panHits = 0;
@@ -46,20 +54,28 @@ public class UserConstitution {
         this.vesHits = 0;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
+    }
+
     public String getUserEmail() {
         return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-    }
-
-    public String getBodyConstitution() {
-        return bodyConstitution;
-    }
-
-    public void setBodyConstitution(String bodyConstitution) {
-        this.bodyConstitution = bodyConstitution;
     }
 
     public int getHepHits() {
@@ -130,7 +146,6 @@ public class UserConstitution {
     public String toString() {
         return "UserConstitution{" +
                 ", userEmail='" + userEmail + '\'' +
-                ", bodyConstitution='" + bodyConstitution + '\'' +
                 ", hepHits=" + hepHits +
                 ", choHits=" + choHits +
                 ", panHits=" + panHits +

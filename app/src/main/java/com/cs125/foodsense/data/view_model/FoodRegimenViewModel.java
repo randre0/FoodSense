@@ -30,9 +30,4 @@ public class FoodRegimenViewModel extends AndroidViewModel {
     public LiveData<List<FoodRegimen>> getAllFoodRegimen(){
         return repository.getAllFoodRegimen();
     }
-    /*
-    public void delete(FoodRegimen fr){
-        repository(fr);
-    }
-    */
 }

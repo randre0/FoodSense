@@ -46,4 +46,21 @@ public interface FoodJournalDAO {
             "ORDER BY datetime(time_eaten) DESC " +
             "LIMIT :meals")
     public LiveData<List<FoodJournal>> getFoodJournalByUserAndMeals(String userEmail, int meals); // get last ? of meals
+
+    // USE for USER CONSTITUTION
+    @Query("SELECT * FROM dt_food_journal " +
+            "WHERE fk_user_email =:userEmail " +
+            "ORDER BY datetime(time_eaten) DESC;")
+    public LiveData<List<FoodJournal>> getFoodJournalByFood(String userEmail);
+
+    @Query("SELECT * FROM dt_food_journal " +
+            "WHERE fk_user_email =:userEmail " +
+            "AND food_desc =:food " +
+            "ORDER BY datetime(time_eaten) DESC " +
+            "LIMIT 2;")
+    public FoodJournal getMostRecentByFood(String userEmail, String food);
+    // if return 1 it's new
+    // if return 2 then compare most recent to past and see if there are changes
+
 }
+

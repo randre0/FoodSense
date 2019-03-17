@@ -33,14 +33,7 @@ public class MyViewModel extends AndroidViewModel {
         repository.updateUser(user);
     }
 
-    public User getUserStatic(String email) {
-        return repository.getUserStatic(email);
-    }
-
     public LiveData<User> getUser(String email) {
         return repository.getUser(email);
     }
-
-
-
 }

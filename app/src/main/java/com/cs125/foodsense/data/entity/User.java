@@ -6,6 +6,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 
 @Entity (tableName = "dt_user")
@@ -24,6 +25,9 @@ public class User {
     private int height;     // in inches
     @ColumnInfo(name="gender")
     private String gender;
+    @Nullable
+    @ColumnInfo(name="body_constitution")
+    private String constitution;
 
     public User(@NonNull String email, @NonNull String firstName, int age, int height, double weight, String gender) {
         this.email = email;
@@ -80,6 +84,15 @@ public class User {
         this.gender = gender;
     }
 
+    @Nullable
+    public String getConstitution() {
+        return constitution;
+    }
+
+    public void setConstitution(String constitution) {
+        this.constitution = constitution;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -89,6 +102,7 @@ public class User {
                 ", weight=" + weight +
                 ", height=" + height +
                 ", gender='" + gender + '\'' +
+                ", constitution='" + constitution + '\'' +
                 '}';
     }
 }

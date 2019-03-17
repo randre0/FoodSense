@@ -23,6 +23,7 @@ import com.cs125.foodsense.data.entity.HeartRate;
 import com.cs125.foodsense.data.entity.User;
 import com.cs125.foodsense.data.entity.UserConstitution;
 
+import java.util.Arrays;
 import java.util.List;
 
 //Repository - use to
@@ -104,8 +105,9 @@ public class MyRepository {
 
         private void update(User user){
             try {
-                userDao.update(user);
-                Log.d("MyRepository", "Updated " + user);
+                userDao.updateUser(user.getEmail(), user.getFirstName(), user.getAge(), user.getHeight(), user.getWeight(), user.getGender());
+                Log.d("test", user.toString());
+                Log.d("MyRepository", "UserAsyncTask updated " + user);
             } catch (Exception e) {
                 Log.d("MyRepository", "Failed to update " + user);
             }
@@ -270,15 +272,45 @@ public class MyRepository {
         }
     }
 
+    private String getBCVarName(String body_constitution){
+        String var = "";
+        switch (body_constitution) {
+            case ("HEP"):
+                var = "for_hep";
+                break;
+            case ("CHO"):
+                var = "for_cho";
+                break;
+            case ("PAN"):
+                var = "for_pan";
+                break;
+            case ("GAS"):
+                var = "for_gas";
+                break;
+            case ("PUL"):
+                var = "for_pul";
+                break;
+            case ("COL"):
+                var = "for_col";
+                break;
+            case ("REN"):
+                var = "for_ren";
+                break;
+            case ("VES"):
+                var = "for_fes";
+                break;
+        }
+
+        return var;
+    }
+
     public void insertFoodRegimen(FoodRegimen fr) {
         new InsertFoodRegimenAsyncTask(foodRegDAO).execute(fr); // if not exist in table
     }
 
-
     public LiveData<List<FoodRegimen>> getAllFoodRegimen(){
         return foodRegDAO.getFoodReg();
     }
-
 
     /* -------------------- FOOD JOURNAL ------------------------------------------*/
     private static class FoodJournalAsyncTask extends AsyncTask<FoodJournal, Void, Void> {
@@ -374,37 +406,31 @@ public class MyRepository {
     /* ---------------- USER CONSTITUTION ------------*/
     private static class UserConstAsyncTask extends AsyncTask<UserConstitution, Void, Void> {
         private UserConstitutionDAO ucDao;
-        private String job;
+        private UserDAO userDao;
 
-        private UserConstAsyncTask(UserConstitutionDAO ucDao, String job) {
+        private UserConstAsyncTask(UserConstitutionDAO ucDao, UserDAO userDao) {
             this.ucDao = ucDao;
-            this.job = job;
+            this.userDao = userDao;
         }
 
         @Override
         protected Void doInBackground(UserConstitution... ucs) {
             UserConstitution uc = ucs[0];
-            switch (this.job){
-                case "INSERT":
-                    insert(uc);
-                    break;
-                case "UPDATE_HITS":
-                    updateHits(uc);
-                    break;
-                case "UPDATE_CONST":
-                    updateConst(uc);
-                    break;
+            if (ucDao.isInTable(uc.getUserEmail(), uc.getFood())== 0){
+                insert(uc);
             }
+            else {
+                updateHits(uc); // update hits, then body constitution
+            }
+            updateConst(uc);
             return null;
         }
 
-        private void insert(UserConstitution uc){
+        private void insert(UserConstitution uc) {
             try {
-                if (ucDao.isInTable(uc.getUserEmail())==0){
-                    ucDao.insert(uc);
-                }
+                ucDao.insert(uc);
                 Log.d("MyRepository", "Inserted " + uc);
-            } catch (NullPointerException npe){
+            } catch (NullPointerException npe) {
                 Log.d("MyRepository", "Null Pointer Exception - Failed to insert " + uc);
             } catch (Exception e) {
                 Log.d("MyRepository", "Failed to insert " + uc);
@@ -413,7 +439,7 @@ public class MyRepository {
 
         private void updateHits(UserConstitution uc){
             try {
-                ucDao.updateHits(uc.getUserEmail(), uc.getHepHits(), uc.getChoHits(),
+                ucDao.updateHits(uc.getUserEmail(), uc.getFood(), uc.getHepHits(), uc.getChoHits(),
                                 uc.getPanHits(), uc.getGasHits(), uc.getPulHits(),
                                 uc.getColHits(), uc.getRenHits(), uc.getVesHits());
                 Log.d("MyRepository", "Updated " + uc);
@@ -424,23 +450,33 @@ public class MyRepository {
 
         private void updateConst(UserConstitution uc){
             try {
-                ucDao.updateConstitution(uc.getUserEmail(), uc.getBodyConstitution());
-                Log.d("MyRepository", "Updated " + uc);
+                UserConstitutionDAO.UserOverallHits user = ucDao.getByUserOverallHits(uc.getUserEmail());
+                Log.d("MyRepository", "Retrieved overall hits for user" + user.toString());
+                List<String> constitution = Arrays.asList("HEP", "CHO", "PAN", "GAS", "PUL", "COL", "REN", "VES");
+                List<Integer> constHits = Arrays.asList(user.getHepHits(), user.getChoHits(), user.getPanHits(),
+                                                        user.getGasHits(), user.getPulHits(), user.getColHits(),
+                                                        user.getRenHits(), user.getVesHits());
+                int userMaxOverallHit = user.getMaxHits();
+
+                User userGeneral = userDao.getUserInfoStatic(uc.getUserEmail());
+
+                for (int i = 0; i < constitution.size(); ++i){
+                    if (userMaxOverallHit == constHits.get(i)){
+                        userGeneral.setConstitution(constitution.get(i));
+                        Log.d("MyRepository", "Set body constitution to " + constitution.get(i));
+                        userDao.updateConstitution(userGeneral.getEmail(), userGeneral.getConstitution());
+                        Log.d("MyRepository", "Updated body constitution for user"+  userGeneral.toString());
+                        break;
+                    }
+                }
             } catch (Exception e) {
                 Log.d("MyRepository", "Failed to update " + uc);
             }
         }
     }
-    public void insertUserConstitution(UserConstitution uc) {
-        new UserConstAsyncTask(userConstDAO, "INSERT").execute(uc);
-    }
 
-    public void updateUserHits(UserConstitution uc) {
-        new UserConstAsyncTask(userConstDAO, "UPDATE_HITS").execute(uc);
-    }
-
-    public void updateConstitution(UserConstitution uc) {
-        new UserConstAsyncTask(userConstDAO, "UPDATE_CONST").execute(uc);
+    public void upsert(UserConstitution uc) {
+        new UserConstAsyncTask(userConstDAO, userDAO).execute(uc);
     }
     
     public List<BodyConstitution> getConstitutionLOV(){
@@ -450,9 +486,6 @@ public class MyRepository {
     public LiveData<UserConstitution> getUserConst(String userEmail){
         return userConstDAO.getByUser(userEmail);
     }
-
-
-
 }
 
 

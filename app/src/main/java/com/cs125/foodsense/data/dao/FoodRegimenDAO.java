@@ -39,43 +39,6 @@ public interface FoodRegimenDAO {
     @Query("SELECT food_desc FROM dt_food_regimen WHERE food_type =:foodType")
     public List<String> getFoodByFoodType(String foodType);
 
-    public class FoodRecommendation {
-        @ColumnInfo(name="food_desc")
-        private String foodDesc;
-        @ColumnInfo(name="food_type")
-        private String foodType;
-
-        public String getFoodDesc() {
-            return foodDesc;
-        }
-
-        public void setFoodDesc(String foodDesc) {
-            this.foodDesc = foodDesc;
-        }
-
-        public String getFoodType() {
-            return foodType;
-        }
-
-        public void setFoodType(String foodType) {
-            this.foodType = foodType;
-        }
-
-        @Override
-        public String toString() {
-            return "FoodRecommendation{" +
-                    "foodDesc='" + foodDesc + '\'' +
-                    ", foodType='" + foodType + '\'' +
-                    '}';
-        }
-    }
-
-    // Fetch recommendation for body type ---need to check/test jessica night
-    @Query("SELECT food_desc, food_type " +
-            "FROM dt_food_regimen " +
-            "WHERE :body_constitution_var > 0 ")
-    public List<FoodRecommendation> getRecommendationByConstitution(String body_constitution_var); // ex. "for_hep"
-
     @Delete
     public void deleteFoodRegimen(FoodRegimen DAO);
 

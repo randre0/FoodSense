@@ -25,16 +25,8 @@ public class HealthStateViewModel extends AndroidViewModel {
         repository = new MyRepository(application);
     }
 
-    public void insertIfNotExist(UserConstitution uc) {
-        repository.insertUserConstitution(uc);
-    }
-
-    public void updateUserHitChanges(UserConstitution uc){
-        repository.updateUserHits(uc);
-    }
-
-    public void updateConstitution(UserConstitution uc) {
-        repository.updateConstitution(uc);
+    public void upsert(UserConstitution uc) {
+        repository.upsert(uc);
     }
 
     public LiveData<UserConstitution> getUserConst(String userEmail){

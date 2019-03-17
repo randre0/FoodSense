@@ -112,7 +112,7 @@ public abstract class MyDatabase extends RoomDatabase {
             bcDao.insert(new BodyConstitution("Hepatonia", "HEP"));
             bcDao.insert(new BodyConstitution("Cholecystonia", "CHO"));
             bcDao.insert(new BodyConstitution("Pancreotonia", "PAN"));
-            bcDao.insert(new BodyConstitution("Gastrotonia", "HEP"));
+            bcDao.insert(new BodyConstitution("Gastrotonia", "GAS"));
             bcDao.insert(new BodyConstitution("Pulmotonia", "PUL"));
             bcDao.insert(new BodyConstitution("Colonotonia", "COL"));
             bcDao.insert(new BodyConstitution("Renotonia", "REN"));
