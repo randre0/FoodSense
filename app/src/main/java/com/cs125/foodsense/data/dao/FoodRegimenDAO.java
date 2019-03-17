@@ -39,10 +39,9 @@ public interface FoodRegimenDAO {
     @Query("SELECT food_desc FROM dt_food_regimen WHERE food_type =:foodType")
     public List<String> getFoodByFoodType(String foodType);
 
-    @Delete
-    public void deleteFoodRegimen(FoodRegimen DAO);
-
-
-
+    @Query("SELECT * FROM dt_food_regimen " +
+            "WHERE food_desc =:food " +
+            "LIMIT 1;")
+    public FoodRegimen getFood(String food);
 }
 

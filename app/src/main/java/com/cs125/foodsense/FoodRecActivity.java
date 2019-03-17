@@ -15,9 +15,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cs125.foodsense.data.entity.FoodRegimen;
+import com.cs125.foodsense.data.entity.User;
 import com.cs125.foodsense.data.entity.UserConstitution;
 import com.cs125.foodsense.data.view_model.FoodRegimenViewModel;
 import com.cs125.foodsense.data.view_model.HealthStateViewModel;
+import com.cs125.foodsense.data.view_model.MyViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,8 +30,9 @@ public class FoodRecActivity extends AppCompatActivity {
 
     private final String USER_EMAIL = "default@uci.edu";
     private HealthStateViewModel vm_health_state;
+    private MyViewModel vm_user;
     private FoodRegimenViewModel vm_food_regimen;
-    private LiveData<UserConstitution> mUserConstitution;
+    private LiveData<User> mUser;   // Note to Rymmy from Jessica: getting Constitution from User instead of UserConstitution
     private LiveData<List<FoodRegimen>> mFoodRegimen;
     private HashMap<String, ArrayList<String>> mCategoryWithFoods;
     private ArrayList<String> foodCategory;
@@ -45,21 +48,21 @@ public class FoodRecActivity extends AppCompatActivity {
         foodCategory = new ArrayList<String>();
         vm_health_state = ViewModelProviders.of(this).get(HealthStateViewModel.class);
         vm_food_regimen = ViewModelProviders.of(this).get(FoodRegimenViewModel.class);
-        mUserConstitution = vm_health_state.getUserConst(USER_EMAIL);
+        mUser = vm_user.getUser(USER_EMAIL);    // Note to Rymmy: Jessia changed this
         mFoodCategorySpinner = (Spinner) findViewById(R.id.food_category_spin);
         mFoodItemsSpinner = (Spinner) findViewById(R.id.food_category_spin2);
 
-        final Observer<UserConstitution> observer = new Observer<UserConstitution>() {
+        final Observer<User> observer = new Observer<User>() {  // Note to Rymmy: Jessica changed from UserConstitution to User
             @Override
-            public void onChanged(@Nullable UserConstitution userConstitution) {
+            public void onChanged(@Nullable User user) {
                 TextView userConstText = findViewById(R.id.user_constitution_text);
-                userConst = userConstitution.getBodyConstitution();
+                userConst = user.getConstitution();
                 userConstText.setText("Your Body constitution is " +
-                        userConstitution.getBodyConstitution()
+                        user.getConstitution()
                         + "\nHere are your food recommendations");
             }
         };
-        mUserConstitution.observe(this, observer);
+        mUser.observe(this, observer);
 
         mFoodRegimen = vm_food_regimen.getAllFoodRegimen();
 
