@@ -51,6 +51,41 @@ public class FoodRegimen {
         this.forVes = forVes;
     }
 
+    public int getHits(String bodyConstitution){
+        int hits = 0;
+        switch(bodyConstitution) {
+            case "HPE":
+                hits = getForHep();
+                break;
+            case "CHO":
+                hits = getForCho();
+                break;
+            case "PAN":
+                hits = getForPan();
+                break;
+            case "GAS":
+                hits = getForGas();
+                break;
+            case "PUL":
+                hits = getForPul();
+                break;
+            case "COL":
+                hits = getForCol();
+                break;
+            case "REN":
+                hits = getForRen();
+                break;
+            case "VES":
+                hits = getForVes();
+                break;
+            default:
+                hits = 0;
+                break;
+        }
+
+        return hits;
+    }
+
     public int getFoodId() {
         return foodId;
     }
