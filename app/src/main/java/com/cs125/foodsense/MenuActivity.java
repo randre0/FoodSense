@@ -38,6 +38,7 @@ public class MenuActivity extends AppCompatActivity {
                 mFragmentTransaction.remove(mCurrentFragment).commit();
                 switch(menuItem.getItemId()) {
                     case R.id.navigation_food_journal:
+                        mCurrentFragment = new ViewFoodJournalFragment();
                         break;
                     case R.id.navigation_log_food:
                         mCurrentFragment = new LogFoodFragment();
