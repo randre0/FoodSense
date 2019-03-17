@@ -35,5 +35,5 @@ public interface UserDAO {
 
     @Query("SELECT * FROM dt_user " +
             "WHERE pk_email = :email ")
-    public User getUserInfoStatic(String email);
+    public User getUserInfoStatic(String email);    // CAN ONLY USE NON LIVE DATA OBJ IN REPOSITORY
 }

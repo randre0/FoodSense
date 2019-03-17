@@ -145,7 +145,8 @@ public class UserConstitution {
     @Override
     public String toString() {
         return "UserConstitution{" +
-                ", userEmail='" + userEmail + '\'' +
+                " userEmail='" + userEmail + '\'' +
+                ", food='" + food + '\'' +
                 ", hepHits=" + hepHits +
                 ", choHits=" + choHits +
                 ", panHits=" + panHits +

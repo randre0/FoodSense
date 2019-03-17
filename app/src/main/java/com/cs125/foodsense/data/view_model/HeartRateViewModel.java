@@ -21,7 +21,6 @@ public class HeartRateViewModel extends AndroidViewModel {
         repository = new MyRepository(application);
     }
 
-    /* FOOD REGIMEN */
     public void insert(@NonNull HeartRate hr){
         try {
             Log.d("HeartRateViewModel", "Inserting heart rate... " + hr);

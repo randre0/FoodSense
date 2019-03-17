@@ -48,6 +48,7 @@ public class FoodRecActivity extends AppCompatActivity {
         foodCategory = new ArrayList<String>();
         vm_health_state = ViewModelProviders.of(this).get(HealthStateViewModel.class);
         vm_food_regimen = ViewModelProviders.of(this).get(FoodRegimenViewModel.class);
+        vm_user = ViewModelProviders.of(this).get(MyViewModel.class);
         mUser = vm_user.getUser(USER_EMAIL);    // Note to Rymmy: Jessia changed this
         mFoodCategorySpinner = (Spinner) findViewById(R.id.food_category_spin);
         mFoodItemsSpinner = (Spinner) findViewById(R.id.food_category_spin2);

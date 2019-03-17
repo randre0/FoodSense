@@ -45,12 +45,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     int age, height, weight;
     String email, gender;
 
+    private User USER;
+    private final String USER_EMAIL = "default@uci.edu";
+
+    // add  viewmodel to activity/fragments that you need
+    private FoodJournalViewModel vm_foodJournal;
+    private HeartRateViewModel vm_heartRate;
+    private MyViewModel vm_user;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init();
         submit_Button = (Button)findViewById(R.id.button1);
         mEditAge = (EditText) findViewById(R.id.edittext);
         mEditHeight   = (EditText)findViewById(R.id.edittext2);
@@ -64,6 +72,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
+        // Fetches User if if registered before
+        vm_user = ViewModelProviders.of(this).get(MyViewModel.class);
+        LiveData<User> u = vm_user.getUser(USER_EMAIL);
+        final Observer<User> observer = new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                USER = user;
+            }
+        };
+        u.observe(this, observer);
 
         submit_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -71,12 +89,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 height = Integer.valueOf(mEditHeight.getText().toString());
                 weight = Integer.valueOf(mEditWeight.getText().toString());
                 email = mEditEmail.getText().toString();
-                updateUserProfile(age, height, weight, "female");
+
+                login(USER_EMAIL);  // login/register
+                if (USER != null){  // If account exists, update profile
+                    updateUserProfile(USER, age, height, weight);
+                }
                 goToHome(view);
             }
         });
-
-    }
+            }
 
     public void goToHome(View view) {
         Intent homeActivity = new Intent(MainActivity.this, MenuActivity.class);
@@ -93,67 +114,55 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    /* ------------------------ HELPER FUNCTIONS  --------------------------------------*/
+    // ** Logs in user if account exists, if non exist- one is created for the user
+    private void login(String email){   // for kayvaan
+        try{
+            USER = new User(email);
+            vm_user.insertIfNotExist(USER);
+            Log.d("MainActivity", "Login/register user");
+        }
+        catch (Exception e){
+            Log.d("MainActivity", "Failed to login/register user");
+        }
+    }
+
+    // ** Update any changes to age, height, weight, and age for user
+    private void updateUserProfile(User user, int age, int height, double weight){
+        Log.d("Main Activity", "Starting update for user profile");
+        if (user.getAge() != age){
+            user.setAge(age);
+            Log.d("User", "Set age to " + age);
+        }
+        if (user.getHeight() != height){
+            user.setHeight(height);
+            Log.d("User", "Set height to " + height);
+        }
+        if (user.getWeight() != weight){
+            user.setWeight(weight);
+            Log.d("User", "Set weight to " + weight);
+        }
+        if (user.getGender() != gender) {
+            user.setGender(gender);
+            Log.d("USER", "Set gender to " + gender);
+        }
+        vm_user.update(user);
+    }
+
     /********************** FOR YOU GUYS TO USE **********************************/
-    // add  viewmodel to activity/fragments that you need
-    private FoodRegimenViewModel vm_foodRegimen;
-    private FoodJournalViewModel vm_foodJournal;
-    private HeartRateViewModel vm_heartRate;
-    private MyViewModel vm_user;
-    private HealthStateViewModel vm_healthState;
 
-    private User USER;
-    private final String USER_EMAIL = "default@uci.edu";
-    private final String NAME = "default";
-
-
-    private void init(){
-        vm_user = ViewModelProviders.of(this).get(MyViewModel.class);
+    public void test(){
         vm_heartRate = ViewModelProviders.of(this).get(HeartRateViewModel.class);
-        vm_foodRegimen = ViewModelProviders.of(this).get(FoodRegimenViewModel.class);
         vm_foodJournal = ViewModelProviders.of(this).get(FoodJournalViewModel.class);
-        vm_healthState = ViewModelProviders.of(this).get(HealthStateViewModel.class);
 
-        login(this.USER_EMAIL, NAME, 0, 0, 0, "Female");
-        updateUserProfile(16, 30, 30.5, "female");
-        insertHeartRate(this.USER_EMAIL, 60, "BEFORE");
+        _testInsertHeartRate(this.USER_EMAIL, 60, "BEFORE");
+        _testInsertHeartRate(this.USER_EMAIL, 65, "AFTER");
         LocalDateTime timeEaten = Utility.getCurrentDateTime();
-        insertInFoodJournal(this.USER_EMAIL, "beef", timeEaten);
-       // testVm_healthstate();
+        _testInsertInFoodJournal(this.USER_EMAIL, "Butter", timeEaten);
+        Log.d("MainActivity", "inserted into food journla");
     }
 
-    private void regimenObserve(){
-        vm_foodRegimen.getAllFoodRegimen().observe(this, new Observer<List<FoodRegimen>>(){
-            @Override
-            public void onChanged(@Nullable List<FoodRegimen> fr){
-                // Update RecycleView
-                Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void userObserve(){
-        vm_user.getUser(this.USER_EMAIL).observe(this, new Observer<User>(){
-            @Override
-            public void onChanged(@Nullable User fr){
-                // Update RecycleView
-                Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void heartRateObserve(){
-        vm_heartRate.getHrDataByUser(this.USER_EMAIL).observe(this, new Observer<List<HeartRate>>(){
-            @Override
-            public void onChanged(@Nullable List<HeartRate> hrList){
-                // Update RecycleView
-                Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-
-    private void insertHeartRate(String userEmail, int heartRate, String tag){
+    private void _testInsertHeartRate(String userEmail, int heartRate, String tag){
         HeartRate hr = new HeartRate(userEmail, heartRate, tag);
         hr.setEmail(userEmail);
         hr.setHeartRate(heartRate);
@@ -164,55 +173,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    // ** Logs in user if account exists, if non exist- one is created for the user
-    private void login(String email, String name, int age, int height, double weight, String gender){   // for kayvaan
-        try{
-            USER = new User(email, name, age, height, weight, gender);
-            vm_user.insertIfNotExist(USER);
-
-            UserConstitution uc = new UserConstitution(this.USER_EMAIL);
-            vm_healthState.insertIfNotExist(uc);
-            //UserConstitution uc = vm_healthState.getUserConst(userEmail);
-            uc.setColHits(1);
-            uc.setHepHits(3);
-            vm_healthState.updateUserHitChanges(uc);
-            uc.setBodyConstitution("HPE");
-            vm_healthState.updateConstitution(uc);
-
-        }
-        catch (Exception e){
-            Log.d("MainActivity", "Failed to login/register user");
-        }
-    }
-
-    // ** Update any changes to age, height, weight, and age for user
-    private void updateUserProfile(int age, int height, double weight, String gender){
-        Log.d("Main Activity", "Starting update for user profile");
-        if (USER.getAge() != age){
-            USER.setAge(age);
-            Log.d("User", "Set age to " + age);
-        }
-        if (USER.getHeight() != height){
-            USER.setHeight(height);
-            Log.d("User", "Set height to " + height);
-        }
-        if (USER.getWeight() != weight){
-            USER.setWeight(weight);
-            Log.d("User", "Set weight to " + weight);
-        }
-        if (USER.getGender() != gender) {
-            USER.setGender(gender);
-            Log.d("USER", "Set gender to " + gender);
-        }
-        vm_user.update(USER);
-    }
-
-    private void insertInFoodJournal(String userEmail, String food, LocalDateTime timeEaten){
+    private void _testInsertInFoodJournal(String userEmail, String food, LocalDateTime timeEaten){
         FoodJournal foodEntry = new FoodJournal(userEmail, food, Converters.toDateString(timeEaten));
         vm_foodJournal.insert(foodEntry);
-        foodEntry.setHrDiff(15);
+        foodEntry.setHrDiff(0);
         vm_foodJournal.update(foodEntry);
-
     }
-
 }

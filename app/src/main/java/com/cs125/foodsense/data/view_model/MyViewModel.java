@@ -22,7 +22,6 @@ public class MyViewModel extends AndroidViewModel {
         repository = new MyRepository(application);
     }
 
-    /* FOOD REGIMEN */
     public void insertIfNotExist(@NonNull User user){
         Log.d("MyViewModel (User)", "Inserting user...");
         repository.insertUser(user);

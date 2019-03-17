@@ -66,7 +66,6 @@ public class MyRepository {
 
     }
 
-
     /*------------------------- USER ----------------------------------------------*/
 
     private static class UserAsyncTask extends AsyncTask<User, Void, Void> {
@@ -105,31 +104,12 @@ public class MyRepository {
 
         private void update(User user){
             try {
+                Log.d("MyRepository", "UserAsyncTask updating " + user);
                 userDao.updateUser(user.getEmail(), user.getFirstName(), user.getAge(), user.getHeight(), user.getWeight(), user.getGender());
-                Log.d("test", user.toString());
                 Log.d("MyRepository", "UserAsyncTask updated " + user);
             } catch (Exception e) {
                 Log.d("MyRepository", "Failed to update " + user);
             }
-        }
-    }
-
-    private static class UserAsyncTaskLoader extends AsyncTaskLoader<LiveData<User>>{
-        private UserDAO userDao;
-        private String userEmail;
-        private int job;
-
-        protected UserAsyncTaskLoader(@NonNull Context context, MyDatabase db, String email, int job) {
-            super(context);
-            this.userDao = userDao;
-            this.userEmail = userEmail;
-            this.job = job;
-        }
-
-        @Nullable
-        @Override
-        public LiveData<User> loadInBackground() {
-            return userDao.getUserInfo(this.userEmail);
         }
     }
 
@@ -178,34 +158,6 @@ public class MyRepository {
         }
     }
 
-    private static class HeartRateAsyncTaskLoader extends AsyncTaskLoader<LiveData<List<HeartRate>>>{
-        private HeartRateDAO hrDao;
-        private String userEmail;
-        private int job;
-
-        protected HeartRateAsyncTaskLoader(@NonNull Context context, HeartRateDAO hrDao, String email, int job) {
-            super(context);
-            this.hrDao = hrDao;
-            this.userEmail = userEmail;
-            this.job = job; // look at loadInBackground to see what jobs are available
-        }
-
-        @Nullable
-        @Override
-        public LiveData<List<HeartRate>> loadInBackground() {
-            LiveData<List<HeartRate>> temp = null;
-            switch (this.job){
-                case 0: // get user's heart rate
-                    temp = hrDao.getAllHRByUser(this.userEmail);
-                    break;
-                case 1: // get all heart rate
-                    temp =  hrDao.getAllHR();
-                    break;
-            }
-            return temp;
-        }
-    }
-
     public void insertHeartRate(HeartRate hr) {
         new HeartRateAsyncTask(heartRateDAO).execute(hr);
     }
@@ -249,26 +201,6 @@ public class MyRepository {
                 Log.d("MyRepository", "Failed to insert  " + regimen);
             }
             return null;
-        }
-    }
-
-    // IF this loader does not work, use the get function below
-    private static class FoodRegimenAsyncTaskLoader extends AsyncTaskLoader<LiveData<List<FoodRegimen>>>{
-        private FoodRegimenDAO frDao;
-        private String userEmail;
-        private String job;
-
-        protected FoodRegimenAsyncTaskLoader(@NonNull Context context, FoodRegimenDAO frDao, String email, String job) {
-            super(context);
-            this.frDao = frDao;
-            this.userEmail = userEmail;
-            this.job = job; // look at loadInBackground to see what jobs are available
-        }
-
-        @Nullable
-        @Override
-        public LiveData<List<FoodRegimen>> loadInBackground() {
-            return frDao.getFoodReg();
         }
     }
 
@@ -357,37 +289,10 @@ public class MyRepository {
         }
     }
 
-    // IF this loader does not work, use the get function below
-    private static class FoodJournalAsyncTaskLoader extends AsyncTaskLoader<LiveData<List<FoodJournal>>>{
-        private FoodJournalDAO fjDao;
-        private String userEmail;
-        private String job;
-
-        protected FoodJournalAsyncTaskLoader(@NonNull Context context, MyDatabase db, String email, String job) {
-            super(context);
-            this.fjDao = db.getFoodJournalDAO();
-            this.userEmail = userEmail;
-            this.job = job; // look at loadInBackground to see what jobs are available
-        }
-
-        @Nullable
-        @Override
-        public LiveData<List<FoodJournal>> loadInBackground() {
-            LiveData<List<FoodJournal>> temp = null;
-            switch (this.job){
-                case "USER_HR": // get user's heart rate
-                    temp = fjDao.getFoodJournalByUser(this.userEmail);
-                    break;
-            }
-            return temp;
-        }
-    }
-
     public void insertIntoFoodJournal(FoodJournal fj) {
         new FoodJournalAsyncTask(foodJournalDAO, "INSERT").execute(fj);
         // need to update/set hits here
-        UserConstitution uc = new UserConstitution(fj.getUserEmail(), fj.getFood());
-        new UserConstAsyncTask(userConstDAO, userDAO, foodRegDAO, fj).execute(uc);
+        _triggerAllUpdate(fj);
     }
 
     public void updateHRDiff(FoodJournal fj) {
@@ -426,11 +331,10 @@ public class MyRepository {
             UserConstitution uc = ucs[0];
             if (ucDao.isInTable(uc.getUserEmail(), uc.getFood())== 0){
                 insert(uc);
+                //updateConst(uc);
             }
-            else {
-                compareSetHits(uc); // update hits, then body constitution
-            }
-            updateConst(uc);
+            compareSetHits(uc); // update hits in UserConstitution entity
+            updateConst(uc);    // update user's body constitution in User entity
             return null;
         }
 
@@ -456,6 +360,8 @@ public class MyRepository {
                 int userMaxOverallHit = user.getMaxHits();
 
                 User userGeneral = userDao.getUserInfoStatic(uc.getUserEmail());
+
+                Log.d("MyRepository", "Retrieved user by email" + userGeneral.toString());
 
                 for (int i = 0; i < constitution.size(); ++i){
                     if (userMaxOverallHit == constHits.get(i)){
@@ -514,13 +420,18 @@ public class MyRepository {
         }
 
         private boolean _isHit(int foodRegHit, String userStatus){
-            if ((foodRegHit < 0 && userStatus == "BAD") ||
-                    (foodRegHit > 0 && userStatus == "GOOD") ||
-                    (foodRegHit == 0 && userStatus == "NEUTRAL")){ //bad
+            if ((foodRegHit < 0 && userStatus.equals("BAD")) ||
+                    (foodRegHit > 0 && userStatus.equals("GOOD")) ||
+                    (foodRegHit == 0 && userStatus.equals("NEUTRAL"))){ //bad
                 return true;
             }
             return false;
         }
+    }
+
+    public void _triggerAllUpdate(FoodJournal fj){
+        UserConstitution uc = new UserConstitution(fj.getUserEmail(), fj.getFood());
+        new UserConstAsyncTask(userConstDAO, userDAO, foodRegDAO, fj).execute(uc);
     }
 
     public List<BodyConstitution> getConstitutionLOV(){

@@ -15,13 +15,17 @@ public class User {
     @NonNull
     @ColumnInfo(name = "pk_email")
     private String email;
+    @Nullable
     @ColumnInfo(name = "first_name")
     private String firstName;
+    @Nullable
     @ColumnInfo(name = "age")
     private int age;
+    @Nullable
     @ColumnInfo(name = "weight")
     private double weight;  // in pounds
     @ColumnInfo(name = "height")
+    @Nullable
     private int height;     // in inches
     @ColumnInfo(name="gender")
     private String gender;
@@ -29,14 +33,23 @@ public class User {
     @ColumnInfo(name="body_constitution")
     private String constitution;
 
-    public User(@NonNull String email, @NonNull String firstName, int age, int height, double weight, String gender) {
+    public User(@NonNull String email){
         this.email = email;
-        this.firstName = firstName;
-        this.age = age;
-        this.weight = weight;
-        this.height = height;
-        this.gender = gender;
+        this.firstName = "";
+        this.age = 0;
+        this.weight = 0;
+        this.height = 0;
+        this.gender = "";
     }
+
+//    public User(@NonNull String email, @NonNull String firstName, int age, int height, double weight, String gender) {
+//        this.email = email;
+//        this.firstName = firstName;
+//        this.age = age;
+//        this.weight = weight;
+//        this.height = height;
+//        this.gender = gender;
+//    }
 
     // GETTER
     public String getEmail() {
@@ -64,6 +77,10 @@ public class User {
     }
 
     // SETTER
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

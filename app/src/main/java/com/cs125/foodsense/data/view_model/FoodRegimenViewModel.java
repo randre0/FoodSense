@@ -22,7 +22,7 @@ public class FoodRegimenViewModel extends AndroidViewModel {
         super(application);
         repository = new MyRepository(application);
     }
-    /* FOOD REGIMEN */
+
     public void insert(FoodRegimen fr){
         repository.insertFoodRegimen(fr);
     }
