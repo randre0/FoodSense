@@ -34,11 +34,18 @@ public interface UserConstitutionDAO {
                                             // pass in (+/-) 1
                                             //SET hep_hits = hep_hits+:hepHit, cho_hits =cho_hits+:choHit, pan_hits =pan_hits+:panHits, gas_hits=gas_hits+:gasHits, pul_hits=pul_hits+:pulHits, col_hits=col_hits+:colHits, ren_hits=ren_hits+:renHits, ves_hits=ves_hits+:vesHits " +
 
-    // Return user's user constitution
+    // Return user's food
     @Query("SELECT * FROM dt_user_constitution " +
             "WHERE user_email =:userEmail " +
             "LIMIT 1;")
     public LiveData<UserConstitution> getByUser(String userEmail);
+
+    // Return user's food
+    @Query("SELECT * FROM dt_user_constitution " +
+            "WHERE user_email =:userEmail " +
+            "AND food_desc =:food " +
+            "LIMIT 1;")
+    public LiveData<UserConstitution> getByUserAndFood(String userEmail, String food);
 
     // Return user's sum of hits for all the food for user
     @Query("SELECT user_email as userEmail, SUM(hep_hits) as hepHits, SUM(cho_hits) as choHits, " +

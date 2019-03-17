@@ -385,6 +385,9 @@ public class MyRepository {
 
     public void insertIntoFoodJournal(FoodJournal fj) {
         new FoodJournalAsyncTask(foodJournalDAO, "INSERT").execute(fj);
+        // need to update/set hits here
+        UserConstitution uc = new UserConstitution(fj.getUserEmail(), fj.getFood());
+        new UserConstAsyncTask(userConstDAO, userDAO, foodRegDAO, fj).execute(uc);
     }
 
     public void updateHRDiff(FoodJournal fj) {
@@ -407,10 +410,15 @@ public class MyRepository {
     private static class UserConstAsyncTask extends AsyncTask<UserConstitution, Void, Void> {
         private UserConstitutionDAO ucDao;
         private UserDAO userDao;
+        private FoodRegimenDAO frDao;
+        private FoodJournal foodJournal;
+        private FoodRegimen foodRegimen;
 
-        private UserConstAsyncTask(UserConstitutionDAO ucDao, UserDAO userDao) {
+        private UserConstAsyncTask(UserConstitutionDAO ucDao, UserDAO userDao, FoodRegimenDAO frDao, FoodJournal fj) {
             this.ucDao = ucDao;
             this.userDao = userDao;
+            this.frDao = frDao;
+            this.foodJournal = fj;
         }
 
         @Override
@@ -420,7 +428,7 @@ public class MyRepository {
                 insert(uc);
             }
             else {
-                updateHits(uc); // update hits, then body constitution
+                compareSetHits(uc); // update hits, then body constitution
             }
             updateConst(uc);
             return null;
@@ -434,17 +442,6 @@ public class MyRepository {
                 Log.d("MyRepository", "Null Pointer Exception - Failed to insert " + uc);
             } catch (Exception e) {
                 Log.d("MyRepository", "Failed to insert " + uc);
-            }
-        }
-
-        private void updateHits(UserConstitution uc){
-            try {
-                ucDao.updateHits(uc.getUserEmail(), uc.getFood(), uc.getHepHits(), uc.getChoHits(),
-                                uc.getPanHits(), uc.getGasHits(), uc.getPulHits(),
-                                uc.getColHits(), uc.getRenHits(), uc.getVesHits());
-                Log.d("MyRepository", "Updated " + uc);
-            } catch (Exception e) {
-                Log.d("MyRepository", "Failed to update " + uc);
             }
         }
 
@@ -473,12 +470,59 @@ public class MyRepository {
                 Log.d("MyRepository", "Failed to update " + uc);
             }
         }
+
+        private void compareSetHits(UserConstitution uc){
+            String food = this.foodJournal.getFood();
+            String foodClassification = this.foodJournal.getFoodClassification();
+            Log.d("MyRepository", "Setting hits based on " + food + " with status " + foodClassification);
+            this.foodRegimen = frDao.getFood(food);
+
+            if (this.foodRegimen != null) {
+                if (_isHit(foodRegimen.getForHep(), foodClassification)) {
+                    uc.setHepHits(1);
+                }
+                if (_isHit(foodRegimen.getForCho(), foodClassification)) {
+                    uc.setChoHits(1);
+                }
+                if (_isHit(foodRegimen.getForCol(), foodClassification)) {
+                    uc.setColHits(1);
+                }
+                if (_isHit(foodRegimen.getForGas(), foodClassification)) {
+                    uc.setGasHits(1);
+                }
+                if (_isHit(foodRegimen.getForPan(), foodClassification)) {
+                    uc.setPanHits(1);
+                }
+                if (_isHit(foodRegimen.getForPul(), foodClassification)) {
+                    uc.setPulHits(1);
+                }
+                if (_isHit(foodRegimen.getForRen(), foodClassification)) {
+                    uc.setPulHits(1);
+                }
+                if (_isHit(foodRegimen.getForVes(), foodClassification)) {
+                    uc.setVesHits(1);
+                }
+                try {
+                    ucDao.updateHits(uc.getUserEmail(), uc.getFood(), uc.getHepHits(), uc.getChoHits(),
+                            uc.getPanHits(), uc.getGasHits(), uc.getPulHits(),
+                            uc.getColHits(), uc.getRenHits(), uc.getVesHits());
+                    Log.d("MyRepository", "Updated " + uc);
+                } catch (Exception e) {
+                    Log.d("MyRepository", "Failed to update " + uc);
+                }
+            }
+        }
+
+        private boolean _isHit(int foodRegHit, String userStatus){
+            if ((foodRegHit < 0 && userStatus == "BAD") ||
+                    (foodRegHit > 0 && userStatus == "GOOD") ||
+                    (foodRegHit == 0 && userStatus == "NEUTRAL")){ //bad
+                return true;
+            }
+            return false;
+        }
     }
 
-    public void upsert(UserConstitution uc) {
-        new UserConstAsyncTask(userConstDAO, userDAO).execute(uc);
-    }
-    
     public List<BodyConstitution> getConstitutionLOV(){
         return bodyConstDAO.getLOV();
     }

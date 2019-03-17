@@ -25,10 +25,12 @@ public class HealthStateViewModel extends AndroidViewModel {
         repository = new MyRepository(application);
     }
 
+    /*
     public void upsert(UserConstitution uc) {
-        repository.upsert(uc);
+        repository._upsertUserConst(uc);
     }
 
+*/
     public LiveData<UserConstitution> getUserConst(String userEmail){
         return repository.getUserConst(userEmail);
     }
