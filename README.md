@@ -5,6 +5,28 @@ According to eastern medicine and culture, every person has a unique body consti
 
 FoodSense is for anyone who wants to maintain or improve their overall health through diet. Our application focuses on gathering information and providing a personalized diet to its users based on the principles of the body constitutions, specifically the Eight-Constitution Medicine, using HR as a biomarker. The Eight-Constitution recommends a diet for people to follow for their current body constitution; negative or positive effects on HR levels from food intake could help categorize a user into a specific body constitution. The application will continuously measure the user’s HR levels and recalibrate the user’s body constitution to help maintain or improve HR levels
 
+### Files
+MenuActivity.Java
+```
+This class creates the layout for the bottom menu bar and allows other fragments to populate the area above the menu bar. The menu bar will launch the corresponding fragmment for each menu button.
+```
+UserProfileFragment.java
+```
+This fragment shows the user their current information which includes weight, height, age, gender, email. This information is extracted from the database, and can be updated with a button at the bottom of the screen.
+```
+LogFoodFragment.java
+```
+This fragment gives the user the option to log their food or measure their heart rate. Each button starts a new fragment that will send information back to this fragment.
+```
+InputFoodActivity.java
+```
+Loaded from the LogFoodFragment, this class allows the user to choose a category and then choose a food from that category. The user can choose to submit this information to the LogFoodFragment
+```
+HeartRateActivity.java
+```
+Loaded from the LogFoodFragment, this class allows the user to measure their heart rate using the built in phone infared sensor. The user can choose to submit this information the LogFoodFragment.
+```
+
 ## How it works
 
 #### Login/Register (Main Activity)
@@ -20,9 +42,10 @@ Provides a menu for the user to what they want to select. The options are:
 #### Food Journal
 * Provides user with history of foods they ate along with classifying whether the food was good, neutral, or bad. 
 
-#### Log
+####Heart Rate/Food Input
 
-***Rymmy fill in here
+Heart rate can be measured from the LogFoodFragment. Here the user is given the option to measure their before and after eating a meal or just to check their heart rate. Both of these cases will be stored in the device's database. If the user measures their heart rate, submits a food option and measures their heart rate again, then the device will store the heart rates, and also store the HR diff with the food entry. This information is used in determining the classification of the food(good, bad and neutral) and update the health state/body constitution of the user as it's being stored, which is reflected in the health state. If the user continually measures their heart rate without submitting a food entry then the heart rates are stored as resting heart rates which are also reflected in the health state.
+
 
 #### User Profile
 * User can update their personal information.
