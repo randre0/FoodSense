@@ -56,8 +56,9 @@ Provides a menu for the user to what they want to select. The options are:
 ## Reference: Project Files
 #### UI (Activity/Fragment)
   * MainActivity.java
-   The first screen the user sees when opening the app. User inputs their personal informatin. After clicking submit, the user is brought to the menu.
-
+    ```
+    The first screen the user sees when opening the app. User inputs their personal informatin. After clicking submit, the user is brought to the menu.
+    ```
   * MenuActivity.java
     ```
     This class creates the layout for the bottom menu bar and allows other fragments to populate the area above the menu bar. The menu bar will launch the corresponding fragmment for each menu button.
@@ -106,9 +107,13 @@ The entities listed below describes each database table.
 
 #### Util
 * Converters.java
-  Serves as a type converter for dates.
+ ```
+ Serves as a type converter for dates.
+ ````
 * Utility.java
-  Contains helper functions.
+ ```
+ Contains helper functions.
+ ```
 
 #### ViewModel
 The ViewModels provide data to the UI (Activities and Fragments) and acts as a communication center between the Repository and the UI. 
@@ -118,11 +123,12 @@ The ViewModels provide data to the UI (Activities and Fragments) and acts as a c
   * HeartRateViewModel.java
   * MyViewModel.java
 
-MyDatabase.java
+#### Data
+* MyDatabase.java
 ```
 This is the RoomDatabase. 
 ```
-MyRepository.java
+* MyRepository.java
 ```
 Manages mulltiple data sources. 
 ```
