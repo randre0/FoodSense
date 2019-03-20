@@ -7,21 +7,18 @@ FoodSense is for anyone who wants to maintain or improve their overall health th
 ### How it works
 
 Food Journal
-```
-Provides user with history of foods they ate along with classifying whether the food was good, neutral, or bad. 
-```
+
+* Provides user with history of foods they ate along with classifying whether the food was good, neutral, or bad. 
+
 
 Heart Rate
 
-```
-Give the example
-```
+* Give the example
 
 Health State
 
-```
-Displays a graph of the user's heart rate over a specified duration and displays a graph of their heart rate change over that same duration. Along with telling the user their current body constitution and giving them a list of food recommendations.
-```
+* Displays a graph of the user's heart rate over a specified duration and displays a graph of their heart rate change over that same duration. Along with telling the user their current body constitution and giving them a list of food recommendations.
+
 
 End with an example of getting some data out of the system or using it for a little demo
 
