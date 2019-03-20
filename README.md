@@ -1,24 +1,25 @@
 # FoodSense
 
+## Introduction
 According to eastern medicine and culture, every person has a unique body constitution which is an indicator of what type of diet they should have. Some foods may aggravate symptoms (i.e. headaches, bloatedness, rashes) for certain body types indicating a food sensitivity. Other research shows that heart rate (HR) can be used as a biomarker for health. 
 
 FoodSense is for anyone who wants to maintain or improve their overall health through diet. Our application focuses on gathering information and providing a personalized diet to its users based on the principles of the body constitutions, specifically the Eight-Constitution Medicine, using HR as a biomarker. The Eight-Constitution recommends a diet for people to follow for their current body constitution; negative or positive effects on HR levels from food intake could help categorize a user into a specific body constitution. The application will continuously measure the user’s HR levels and recalibrate the user’s body constitution to help maintain or improve HR levels
 
-### How it works
+## How it works
 
 #### Login/Register (Main Activity)
 * Screen that user sees first time they open the app. Has user input their age, height, weight, gender, and email. This is like a registration screent that the user never sees again. This way, our recommendation system has initial information about the user.
 
 #### Menu Options (Menu Activity)
 Provides a menu for the user to what they want to select. The options are: 
-** Food Journal
-** Log Food
-*** Log Food
-*** Log Heart Rate
-** User Profile
-** Health State
-*** View Graphs
-*** Viewing Food Recommendations.
+* Food Journal
+* Log Food
+  * Log Food
+  * Log Heart Rate
+* User Profile
+* Health State
+  * View Graphs
+  * Viewing Food Recommendations.
 
 ####  (Input Food Journal, Collect Heart Rate)
 * 
