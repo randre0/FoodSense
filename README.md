@@ -20,7 +20,7 @@ Give the example
 Health State
 
 ```
-Give the example
+Displays a graph of the user's heart rate over a specified duration and displays a graph of their heart rate change over that same duration. Along with telling the user their current body constitution and giving them a list of food recommendations.
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
