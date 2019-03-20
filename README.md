@@ -6,19 +6,34 @@ FoodSense is for anyone who wants to maintain or improve their overall health th
 
 ### How it works
 
-Food Journal
+#### Login/Register (Main Activity)
+* Screen that user sees first time they open the app. Has user input their age, height, weight, gender, and email. This is like a registration screent that the user never sees again. This way, our recommendation system has initial information about the user.
+
+#### Menu Options (Menu Activity)
+Provides a menu for the user to what they want to select. The options are: 
+** Food Journal
+** Log Food
+*** Log Food
+*** Log Heart Rate
+** User Profile
+** Health State
+*** View Graphs
+*** Viewing Food Recommendations.
+
+####  (Input Food Journal, Collect Heart Rate)
+* 
+
+#### View Food Journal
 
 * Provides user with history of foods they ate along with classifying whether the food was good, neutral, or bad. 
 
-
-Heart Rate
+#### Heart Rate
 
 * Give the example
 
-Health State
+#### Health State
 
 * Displays a graph of the user's heart rate over a specified duration and displays a graph of their heart rate change over that same duration. Along with telling the user their current body constitution and giving them a list of food recommendations.
-
 
 #### The Data Side
 End with an example of getting some data out of the system or using it for a little demo
