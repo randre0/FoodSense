@@ -6,7 +6,12 @@ According to eastern medicine and culture, every person has a unique body consti
 FoodSense is for anyone who wants to maintain or improve their overall health through diet. Our application focuses on gathering information and providing a personalized diet to its users based on the principles of the body constitutions, specifically the Eight-Constitution Medicine, using HR as a biomarker. The Eight-Constitution recommends a diet for people to follow for their current body constitution; negative or positive effects on HR levels from food intake could help categorize a user into a specific body constitution. The application will continuously measure the user’s HR levels and recalibrate the user’s body constitution to help maintain or improve HR levels
 
 ### Files
-MenuActivity.Java
+MainActivity.java
+```
+The first screen the user sees when opening the app. User inputs their personal informatin. After clicking submit, the user is brought to the menu.
+```
+
+MenuActivity.java
 ```
 This class creates the layout for the bottom menu bar and allows other fragments to populate the area above the menu bar. The menu bar will launch the corresponding fragmment for each menu button.
 ```
@@ -25,6 +30,10 @@ Loaded from the LogFoodFragment, this class allows the user to choose a category
 HeartRateActivity.java
 ```
 Loaded from the LogFoodFragment, this class allows the user to measure their heart rate using the built in phone infared sensor. The user can choose to submit this information the LogFoodFragment.
+```
+HealthState.java
+```
+This fragment extends from MenuActivity, when user taps on health state. Heart Rate graphs are displayed to the user as well as the user's body constitution. From this, they can view food recommendations.
 ```
 
 ## How it works
