@@ -5,41 +5,6 @@ According to eastern medicine and culture, every person has a unique body consti
 
 FoodSense is for anyone who wants to maintain or improve their overall health through diet. Our application focuses on gathering information and providing a personalized diet to its users based on the principles of the body constitutions, specifically the Eight-Constitution Medicine, using HR as a biomarker. The Eight-Constitution recommends a diet for people to follow for their current body constitution; negative or positive effects on HR levels from food intake could help categorize a user into a specific body constitution. The application will continuously measure the user’s HR levels and recalibrate the user’s body constitution to help maintain or improve HR levels
 
-### Files
-MainActivity.java
-```
-The first screen the user sees when opening the app. User inputs their personal informatin. After clicking submit, the user is brought to the menu.
-```
-
-MenuActivity.java
-```
-This class creates the layout for the bottom menu bar and allows other fragments to populate the area above the menu bar. The menu bar will launch the corresponding fragmment for each menu button.
-```
-UserProfileFragment.java
-```
-This fragment shows the user their current information which includes weight, height, age, gender, email. This information is extracted from the database, and can be updated with a button at the bottom of the screen.
-```
-LogFoodFragment.java
-```
-This fragment gives the user the option to log their food or measure their heart rate. Each button starts a new fragment that will send information back to this fragment.
-```
-InputFoodActivity.java
-```
-Loaded from the LogFoodFragment, this class allows the user to choose a category and then choose a food from that category. The user can choose to submit this information to the LogFoodFragment
-```
-HeartRateActivity.java
-```
-Loaded from the LogFoodFragment, this class allows the user to measure their heart rate using the built in phone infared sensor. The user can choose to submit this information the LogFoodFragment.
-```
-HealthState.java
-```
-This fragment extends from MenuActivity, when user taps on health state. Heart Rate graphs are displayed to the user as well as the user's body constitution. From this, they can view food recommendations.
-```
-ViewFoodJournalFragment.java
-```
-This fragment displays the user's past entries from the database along with the classification of the food for their body type (bad, neutral, good). 
-```
-
 ## How it works
 
 #### Login/Register (Main Activity)
@@ -87,3 +52,82 @@ Provides a menu for the user to what they want to select. The options are:
 * **Hahnara Hyun** - [Hahnara's github](https://github.com/hahnarahyun)
 * **Rymmy Andre** - [Rymmy's github](https://github.com/randre0)
 
+
+## Reference: Project Files
+#### UI (Activity/Fragment)
+  MainActivity.java
+  ```
+  The first screen the user sees when opening the app. User inputs their personal informatin. After clicking submit, the user is brought to the menu.
+  ```
+  MenuActivity.java
+  ```
+  This class creates the layout for the bottom menu bar and allows other fragments to populate the area above the menu bar. The menu bar will launch the corresponding fragmment for each menu button.
+  ```
+  UserProfileFragment.java
+  ```
+  This fragment shows the user their current information which includes weight, height, age, gender, email. This information is extracted from the database, and can be updated with a button at the bottom of the screen.
+  ```
+  LogFoodFragment.java
+  ```
+  This fragment gives the user the option to log their food or measure their heart rate. Each button starts a new fragment that will send information back to this fragment.
+  ```
+  InputFoodActivity.java
+  ```
+  Loaded from the LogFoodFragment, this class allows the user to choose a category and then choose a food from that category. The user can choose to submit this information to the LogFoodFragment
+  ```
+  HeartRateActivity.java
+  ```
+  Loaded from the LogFoodFragment, this class allows the user to measure their heart rate using the built in phone infared sensor. The user can choose to submit this information the LogFoodFragment.
+  ```
+  HealthState.java
+  ```
+  This fragment extends from MenuActivity, when user taps on health state. Heart Rate graphs are displayed to the user as well as the user's body constitution. From this, they can view food recommendations.
+  ```
+  ViewFoodJournalFragment.java
+  ```
+  This fragment displays the user's past entries from the database along with the classification of the food for their body type (bad, neutral, good). 
+  ```
+#### Data Access Objects
+All database interactions (query methods) are defined in data acess objects listed below.
+  BodyConstitutionDAO.java
+  FoodJournalDAO.java
+  FoodRegimenDAO.java
+  HeartRateDAO.java
+  UserConstitutionDAO.java
+  UserDAO.java
+
+#### Entity
+The entities listed below describes each database table.
+  BodyConstitution.java
+  FoodJournal.java
+  FoodRegimen.java
+  HeartRate.java
+  User.java
+  UserConstitution.java
+
+#### Util
+  Converters.java
+  '''
+  Serves as a type converter for dates.
+  '''
+  Utility.java
+  '''
+  Contains helper functions.
+  '''
+
+#### ViewModel
+The ViewModels provide data to the UI (Activities and Fragments) and acts as a communication center between the Repository and the UI. 
+  FoodJouralViewModel.java
+  FoodRegimenViewModel.java
+  HealthStateViewModel.java
+  HeartRateViewModel.java
+  MyViewModel.java
+
+MyDatabase.java
+'''
+This is the RoomDatabase.
+'''
+MyRepository.java
+'''
+Manages mulltiple data sources. 
+'''
