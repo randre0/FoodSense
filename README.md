@@ -35,7 +35,7 @@ End with an example of getting some data out of the system or using it for a lit
 ## Authors
 
 * **Jessica Chen** - [Jessica's github](https://github.com/chenjessica1920)
-* **Kayvaan Azad** - [Kavyaan's github](https://github.com/PurpleBooth)
+* **Kayvaan Azad** - [Kavyaan's github](https://github.com/kazad123)
 * **Hahnara Hyun** - [Hahnara's github](https://github.com/hahnarahyun)
 * **Rymmy Andre** - [Rymmy's github](https://github.com/randre0)
 
