@@ -13,27 +13,21 @@ FoodSense is for anyone who wants to maintain or improve their overall health th
 #### Menu Options (Menu Activity)
 Provides a menu for the user to what they want to select. The options are: 
 * Food Journal
-* Log Food
-  * Log Food
-  * Log Heart Rate
+* Log (Log Food & Collect Heart Rate)
 * User Profile
-* Health State
-  * View Graphs
-  * Viewing Food Recommendations.
+* Health State (View graphs & food recommendation list)
 
-####  (Input Food Journal, Collect Heart Rate)
-* 
-
-#### View Food Journal
-
+#### Food Journal
 * Provides user with history of foods they ate along with classifying whether the food was good, neutral, or bad. 
 
-#### Heart Rate
+#### Log
 
-* Give the example
+***Rymmy fill in here
+
+#### User Profile
+* User can update their personal information.
 
 #### Health State
-
 * Displays a graph of the user's heart rate over a specified duration and displays a graph of their heart rate change over that same duration. Along with telling the user their current body constitution and giving them a list of food recommendations.
 
 #### The Data Side
