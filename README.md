@@ -42,9 +42,13 @@ Provides a menu for the user to what they want to select. The options are:
 #### Food Journal
 * Provides user with history of foods they ate along with classifying whether the food was good, neutral, or bad. 
 
-####Heart Rate/Food Input
+#### Heart Rate/Food Input
 
-Heart rate can be measured from the LogFoodFragment. Here the user is given the option to measure their before and after eating a meal or just to check their heart rate. Both of these cases will be stored in the device's database. If the user measures their heart rate, submits a food option and measures their heart rate again, then the device will store the heart rates, and also store the HR diff with the food entry. This information is used in determining the classification of the food(good, bad and neutral) and update the health state/body constitution of the user as it's being stored, which is reflected in the health state. If the user continually measures their heart rate without submitting a food entry then the heart rates are stored as resting heart rates which are also reflected in the health state.
+* Heart rate can be measured from the LogFoodFragment. 
+* Here the user is given the option to measure their before and after eating a meal or just to check their heart rate. Both of these cases will be stored in the device's database. 
+* If the user measures their heart rate, submits a food option and measures their heart rate again, then the device will store the heart rates, and also store the HR diff with the food entry. 
+* This information is used in determining the classification of the food(good, bad and neutral) and update the health state/body constitution of the user as it's being stored, which is reflected in the health state. 
+* If the user continually measures their heart rate without submitting a food entry then the heart rates are stored as resting heart rates which are also reflected in the health state.
 
 
 #### User Profile
