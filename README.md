@@ -8,7 +8,7 @@ FoodSense is for anyone who wants to maintain or improve their overall health th
 
 Food Journal
 ```
-Provides user with history of foods they ate along with classifying weather the food was good, neutral, or bad. 
+Provides user with history of foods they ate along with classifying whether the food was good, neutral, or bad. 
 ```
 
 Heart Rate
